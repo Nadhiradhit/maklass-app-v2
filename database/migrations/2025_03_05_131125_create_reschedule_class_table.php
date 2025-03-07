@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('reschedule_class', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_booking');
+            $table->date('date_reschedule');
+            $table->time('time_reschedule');
+            $table->string('reason', length: 100);
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

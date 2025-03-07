@@ -15,7 +15,11 @@ class Booking extends Model
     protected $table = 'booking_class';
 
     protected $fillable = [
-
+        'date_booking',
+        'time_booking',
+        'status',
+        'user_id',
+        'room_class_id',
     ];
 
     // Relation Between Booking and Room
