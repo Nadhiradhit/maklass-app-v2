@@ -27,4 +27,9 @@ class Booking extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function user(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

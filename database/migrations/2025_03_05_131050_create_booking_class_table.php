@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('date_booking');
             $table->time('time_booking');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('room_class_id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('room_class_id')->constrained('room_class')->onDelete('cascade');
             $table->timestamps();
         });
     }

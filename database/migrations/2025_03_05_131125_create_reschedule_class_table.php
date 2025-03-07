@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reschedule_class', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_booking');
+            $table->foreignId('booking_id')->constrained('booking_class')->onDelete('cascade');
             $table->date('date_reschedule');
             $table->time('time_reschedule');
             $table->string('reason', length: 100);
