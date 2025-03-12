@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutheticationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,6 +8,5 @@ Route::get('/', function () {
 });
 
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+route::get('/login', [AutheticationController::class, "index"])->name('login');
+route::get('/forget-password', [AutheticationController::class, "forgetPassword"])->name('forget-password');
