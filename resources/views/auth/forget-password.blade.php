@@ -20,17 +20,17 @@
             </svg>
             <h2 class="mt-4 sm:mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Masuk Ke <span class="text-secondary-700 uppercase">Maklass</span></h2>
 
-            <form class="w-full max-w-sm sm:max-w-md mt-4 sm:mt-6 px-2 sm:px-0" method="POST" action="{{ route('login.submit')}}">
+            <form class="w-full max-w-sm sm:max-w-md mt-4 sm:mt-6 px-2 sm:px-0" method="POST" action="">
                 @csrf
 
                 <x-form.input
-                    type="text"
-                    id="identifier"
-                    name="identifier"
-                    label="Masukkan Email Atau NIM"
-                    placeholder="Masukkan Email Atau NIM Anda"
-                    :value="old('identifier')"
-                    class="@error('identifier') border-red-500 @enderror"
+                    type="email"
+                    id="email"
+                    name="email"
+                    label="Masukkan Email"
+                    placeholder="Masukkan Email Anda"
+                    :value="old('email')"
+                    class="@error('email') border-red-500 @enderror"
                 />
 
                 <x-form.input
@@ -67,4 +67,26 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const password = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+
+            if (togglePassword && password) {
+                const eyeIcon = document.getElementById('eyeIcon');
+                const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+                togglePassword.addEventListener('click', function() {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    eyeIcon.classList.toggle('hidden');
+                    eyeSlashIcon.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    @endpush
 </x-layouts.layout-auth>

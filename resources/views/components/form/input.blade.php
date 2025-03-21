@@ -4,6 +4,7 @@
     'name' => '',
     'label' => '',
     'placeholder' => '',
+    'value'=> '',
     'hasToggle' => false,
 ])
 
@@ -18,6 +19,7 @@
             id="{{ $id }}"
             name="{{ $name }}"
             placeholder="{{ $placeholder }}"
+            value="{{ $value }}"
             {{ $attributes->merge(['class' => 'w-full bg-neutral-200 rounded-lg p-3'. ($hasToggle ? ' pr-10' : '')]) }}
         >
 
@@ -34,5 +36,30 @@
         @endif
     </div>
 
+    @error($name)
+        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+    @enderror
 </div>
+
+@if ($hasToggle && $type === 'password')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const password = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+
+            if (togglePassword && password) {
+                const eyeIcon = document.getElementById('eyeIcon');
+                const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+                togglePassword.addEventListener('click', function() {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    eyeIcon.classList.toggle('hidden');
+                    eyeSlashIcon.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+@endif
 
