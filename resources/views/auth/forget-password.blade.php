@@ -1,9 +1,13 @@
 @section('title', 'Login Maklass')
 
 <x-layouts.layout-auth>
-    <div class="flex flex-col-reverse md:flex-row-reverse items-stretch justify-center w-full max-w-6xl min-h-[500px] md:min-h-[600px] lg:min-h-[700px] transition-opacity opacity-100 duration-750 starting:opacity-0 border border-gray-100 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
-        <!-- Form section -->
-        <div class="flex flex-col items-center justify-center w-full md:w-1/2 p-4 sm:p-6 md:p-8 z-10">
+    <div class="flex mx-auto items-stretch justify-center w-3xl min-h-[500px] md:min-h-[600px] lg:min-h-[700px] transition-opacity opacity-100 duration-750 starting:opacity-0 border border-gray-100 rounded-xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+
+        {{-- Alert --}}
+        <x-alert />
+
+        {{-- Form Section --}}
+        <div class="flex flex-col items-center justify-center w-full p-4 sm:p-6 md:p-8 z-10">
             <svg width="118" height="66" viewBox="0 0 118 66" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24">
                 <g clip-path="url(#clip0_534_5172)">
                     <path d="M57.2687 59.2755C52.4741 63.5094 46.0813 66 39.1558 66.2491H38.0903L30.3657 37.3585L22.3748 7.22264C27.7021 2.73962 34.3612 0 41.5531 0V0.249057L49.2777 29.1396L57.2687 59.2755Z" fill="#7AD2EA"/>
@@ -18,9 +22,9 @@
                     </clipPath>
                 </defs>
             </svg>
-            <h2 class="mt-4 sm:mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Masuk Ke <span class="text-secondary-700 uppercase">Maklass</span></h2>
+            <h2 class="mt-4 sm:mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Lupa Password <span class="text-secondary-700 uppercase">Maklass</span></h2>
 
-            <form class="w-full max-w-sm sm:max-w-md mt-4 sm:mt-6 px-2 sm:px-0" method="POST" action="">
+            <form class="w-full max-w-sm sm:max-w-lg mt-4 sm:mt-6 px-2 sm:px-0" method="POST" action="{{ route('reset-password.submit')}}">
                 @csrf
 
                 <x-form.input
@@ -37,34 +41,26 @@
                     type="password"
                     id="password"
                     name="password"
-                    label="Masukkan Password"
-                    placeholder="Masukkan Password Anda"
+                    label="Masukkan Password Baru"
+                    placeholder="Masukkan Password Baru Anda"
                     hasToggle="true"
                     class="@error('password') border-red-500 @enderror"
                 />
 
-                <div class="mb-4">
-                    <a href="{{ route('forget-password') }}" class="text-sm sm:text-base text-secondary-700 hover:underline">
-                        Lupa Password?
-                    </a>
-                </div>
+                <x-form.input
+                    type="password"
+                    id="password"
+                    name="password_confirmation"
+                    label="Masukkan Konfirmasi Password"
+                    placeholder="Masukkan Konfirmasi Password Anda"
+                    hasToggle="true"
+                    class="@error('password') border-red-500 @enderror"
+                />
 
                 <x-form.button type="submit">
-                    Masuk
+                    Reset Password
                 </x-form.button>
             </form>
-        </div>
-
-        <div class="w-full md:h-auto md:w-1/2 relative">
-            <div class="hidden md:block h-full w-full relative">
-                <img src="{{ asset('assets/images/login-background-maklass.png') }}" alt="Login Background - Maklass 2025" class="h-full w-full object-cover rounded-r-lg">
-                <div class="absolute flex items-center gap-4 bottom-10 right-15 max-w-md bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-lg transform hover:translate-y-[-5px] transition-all duration-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="text-black size-14"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
-                    <p class="text-sm text-gray-800 leading-relaxed">
-                        Maklass merupakan sebuah layanan website untuk ruangan yang berada pada <span class="text-indigo-600">Kampus Polimedia Jakarta.</span>
-                    </p>
-                </div>
-            </div>
         </div>
     </div>
 

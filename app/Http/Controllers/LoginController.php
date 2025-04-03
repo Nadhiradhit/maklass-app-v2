@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function index(){
         return view('auth.login');
-    }
-
-    public function forgetPassword(){
-        return view('auth.forget-password');
     }
 
     public function login(Request $request){
@@ -54,4 +51,36 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
+    public function forgetPassword(){
+        return view('auth.forget-password');
+    }
+
+    public function resetPassword(){
+        return view('auth.reset-password');
+    }
+
+    public function updatePassword(Request $request){
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        // Verify Current Password
+        // if(!Hash::check($request->current_password, $user->password)){
+        //     return back()->withErrors([
+        //         'current_password' => 'Current password is invalid'
+        //     ]);
+        // }
+
+        // Update Password
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Password has been updated');
+
+    }
+
 }
