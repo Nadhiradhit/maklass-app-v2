@@ -8,6 +8,9 @@ class UserController extends Controller
 {
     //
     public function index(){
-        return view('user.dashboard');
+
+        $roomData = \App\Models\Room::all();
+
+        return view('landing.user.dashboard' , compact('roomData'));
     }
 }

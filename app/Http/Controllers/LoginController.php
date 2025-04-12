@@ -34,9 +34,9 @@ class LoginController extends Controller
 
             // Authenticated Pass
             if($user->isAdmin()){
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('landing.admin.dashboard');
             }else{
-                return redirect()->route('user.dashboard');
+                return redirect()->route('landing.user.dashboard');
             }
         }
 
@@ -49,6 +49,8 @@ class LoginController extends Controller
 
     public function logout(){
         Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
         return redirect()->route('login');
     }
 

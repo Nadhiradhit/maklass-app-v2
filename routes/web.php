@@ -21,10 +21,10 @@ route::post('/reset-password', [LoginController::class, "updatePassword"])->name
 
 // User Route
 Route::middleware('user')->prefix('dashboard')->group(function () {
-    Route::get('/', [UserController::class, "index"])->name('user.dashboard');
+    Route::get('/', [UserController::class, "index"])->name('landing.user.dashboard');
 });
 
 // Admin Route
 Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
-    Route::get('/', [AdminController::class, "index"])->name('admin.dashboard');
+    Route::get('/', [AdminController::class, "index"])->name('landing.admin.dashboard');
 });
