@@ -27,10 +27,10 @@ class User extends Authenticatable
         return $this->role == 'admin';
     }
 
-    // Can Login With Email And NIM
+    // Can Login With Email Polimedia Only
     public function findForLogin($identifier){
         return self::where('email', $identifier)
-                    ->orWhere('nim', $identifier)
+                    ->where('email', 'like', '%@polimedia.ac.id')
                     ->first();
     }
     public function booking(): HasMany

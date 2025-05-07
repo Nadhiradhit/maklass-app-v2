@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking_class', function (Blueprint $table) {
+        Schema::create('booking_laboratory', function (Blueprint $table) {
             $table->id();
             $table->date('date_booking');
             $table->time('time_booking');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('room_class_id')->constrained('room_class')->onDelete('cascade');
+            $table->foreignId('room_laboratory_id')->constrained('room_laboratory')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking_class');
+        Schema::dropIfExists('booking_laboratory');
     }
 };

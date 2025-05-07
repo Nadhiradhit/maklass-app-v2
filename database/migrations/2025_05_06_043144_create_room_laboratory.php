@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_class', function (Blueprint $table) {
+        Schema::create('room_laboratory', function (Blueprint $table) {
             $table->id();
             $table->string('room', length: 10)->unique();
             $table->string('name', length: 20);
-            $table->string('floor', length: 20);
-            $table->enum('status', ['available', 'booked'])->default('available');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_class');
+        Schema::dropIfExists('room_laboratory');
     }
 };

@@ -19,15 +19,14 @@ class UserSeeder extends Seeder
         // Add Users To User Table
         DB::table('users')->insert([
             'name' => 'Admin',
-            'email' => 'admin@example',
+            'email' => 'admin@polimedia.ac.id',
             'password' => Hash::make('password'),
             'role' => 'admin'
         ]);
 
         DB::table('users')->insert([
-            'name' => 'User',
-            'email' => 'user@example',
-            'nim' => '1234567890',
+            'name' => 'User Testing',
+            'email' => 'user@polimedia.ac.id',
             'password' => Hash::make('password123'),
             'role' => 'user'
         ]);

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reschedule_class', function (Blueprint $table) {
+        Schema::create('reschedule_laboratory', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->constrained('booking_class')->onDelete('cascade');
+            $table->foreignId('booking_id')->constrained('booking_laboratory')->onDelete('cascade');
             $table->date('date_reschedule');
             $table->time('time_reschedule');
             $table->string('reason', length: 100);
@@ -22,12 +22,11 @@ return new class extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('reschedule_class');
+        Schema::dropIfExists('reschedule_laboratory');
     }
 };

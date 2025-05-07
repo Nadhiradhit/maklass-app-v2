@@ -10,7 +10,7 @@ class Reschedule extends Model
     //
     use HasFactory;
 
-    protected $table = 'reschedule_class';
+    protected $table = 'reschedule_laboratory';
 
     protected $fillable = [
         'id_booking',

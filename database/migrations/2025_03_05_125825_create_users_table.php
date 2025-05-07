@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name', length: 32);
             $table->string('email', length: 64)->unique();
-            $table->string('nim', length: 10)->unique()->nullable();
             $table->string('password');
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->timestamps();

@@ -12,87 +12,68 @@ class RoomClassSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void {
-        DB::table('room_class')->insert([
+        DB::table('room_laboratory')->insert([
             [
-                'room' => "10.1",
-                'name' => "Room 10.1",
-                'floor' => "Floor 10",
-                'status' => "booked",
+                'room' => "L1",
+                'name' => "Laboratory 1",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.2",
-                'name' => "Room 10.2",
-                'floor' => "Floor 10",
-                'status' => "available",
+                'room' => "L2",
+                'name' => "Laboratory 2",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.3",
-                'name' => "Room 10.3",
-                'floor' => "Floor 10",
-                'status' => "booked",
+                'room' => "L3",
+                'name' => "Laboratory 3",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.4",
-                'name' => "Room 10.4",
-                'floor' => "Floor 10",
-                'status' => "available",
+                'room' => "L4",
+                'name' => "Laboratory 4",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.5",
-                'name' => "Room 10.5",
-                'floor' => "Floor 10",
-                'status' => "booked",
+                'room' => "L5",
+                'name' => "Laboratory 5",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.6",
-                'name' => "Room 10.6",
-                'floor' => "Floor 10",
-                'status' => "available",
+                'room' => "L6",
+                'name' => "Laboratory 6",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.7",
-                'name' => "Room 10.7",
-                'floor' => "Floor 10",
-                'status' => "booked",
+                'room' => "L7",
+                'name' => "Laboratory 7",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'room' => "10.8",
-                'name' => "Room 10.8",
-                'floor' => "Floor 10",
-                'status' => "available",
+                'room' => "L8",
+                'name' => "Laboratory 8",
+
                 'created_at' => now(),
                 'updated_at' => now()
             ],
-            [
-                'room' => "10.9",
-                'name' => "Room 10.9",
-                'floor' => "Floor 10",
-                'status' => "booked",
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'room' => "10.10",
-                'name' => "Room 10.10",
-                'floor' => "Floor 10",
-                'status' => "available",
-                'created_at' => now(),
-                'updated_at' => now()
-            ]
+            // [
+            //     'room' => "10.9",
+            //     'name' => "Room 10.9",
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
+            // [
+            //     'room' => "10.10",
+            //     'name' => "Room 10.10",
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ]
         ]);
     }
 }

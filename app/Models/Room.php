@@ -10,13 +10,11 @@ class Room extends Model
 {
     use HasFactory;
     //
-    protected $table = 'room_class';
+    protected $table = 'room_laboratory';
 
     protected $fillable = [
         'room',
         'name',
-        'floor',
-        'status',
     ];
 
     public function booking(): HasMany{

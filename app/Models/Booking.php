@@ -12,14 +12,14 @@ class Booking extends Model
     use HasFactory;
 
     //
-    protected $table = 'booking_class';
+    protected $table = 'booking_laboratory';
 
     protected $fillable = [
         'date_booking',
         'time_booking',
         'status',
         'user_id',
-        'room_class_id',
+        'room_laboratory_id',
     ];
 
     // Relation Between Booking and Room
