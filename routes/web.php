@@ -18,6 +18,9 @@ route::post('/forget-password', [LoginController::class, "SendResetPassword"])->
 route::get('/reset-password', [LoginController::class, "resetPassword"])->name('reset-password');
 route::post('/reset-password', [LoginController::class, "updatePassword"])->name('reset-password.submit');
 
+// Register Route
+route::get('/register', [LoginController::class, "register"])->name('register');
+route::post('/register', [LoginController::class, "handleRegister"])->name('register.submit');
 
 // User Route
 Route::middleware('user')->prefix('dashboard')->group(function () {
