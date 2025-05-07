@@ -24,13 +24,16 @@
                 @csrf
 
                 <x-form.input
-                    type="text"
+                    type="email"
                     id="identifier"
                     name="identifier"
-                    label="Masukkan Email Atau NIM"
-                    placeholder="Masukkan Email Atau NIM Anda"
+                    label="Masukkan Email Polimedia"
+                    placeholder="Masukkan email anda"
                     :value="old('identifier')"
                     class="@error('identifier') border-red-500 @enderror"
+                    pattern="[a-zA-Z0-9._%+-]+@polimedia\.ac\.id"
+                    title="Masukkan email @polimedia.ac.id Anda"
+                    required
                 />
 
                 <x-form.input
@@ -38,7 +41,7 @@
                     id="password"
                     name="password"
                     label="Masukkan Password"
-                    placeholder="Masukkan Password Anda"
+                    placeholder="Masukkan password anda"
                     hasToggle="true"
                     class="@error('password') border-red-500 @enderror"
                 />
@@ -53,6 +56,14 @@
                     Masuk
                 </x-form.button>
             </form>
+            <div class="mt-4 flex gap-2">
+                <p class="text-sm sm:text-base text-gray-800">
+                    Belum Punya Akun?
+                </p>
+                <a href="{{ route('register')}}" class="text-sm sm:text-base text-secondary-700 hover:underline">
+                    Buat Akun
+                </a>
+            </div>
         </div>
 
         <div class="w-full md:h-auto md:w-1/2 relative">

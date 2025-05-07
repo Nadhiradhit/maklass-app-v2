@@ -72,7 +72,7 @@
                     class="@error('password') border-red-500 @enderror"
                 />
 
-                    {{-- <x-form.input
+                    <x-form.input
                         type="password"
                         id="password_confirmation"
                         name="password_confirmation"
@@ -80,7 +80,7 @@
                         placeholder="Konfirmasi password anda"
                         hasToggle="true"
                         class="@error('password_confirmation') border-red-500 @enderror"
-                    /> --}}
+                    />
 
                 <x-form.button type="submit">
                     Daftar

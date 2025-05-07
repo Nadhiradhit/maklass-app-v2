@@ -61,6 +61,12 @@
                     Reset Password
                 </x-form.button>
             </form>
+
+            <div class="mt-4 sm:mt-6 text-center">
+                <a href="{{ route('login') }}" class="text-sm sm:text-base text-secondary-700 hover:underline">
+                    Kembali ke halaman login
+                </a>
+            </div>
         </div>
     </div>
 
