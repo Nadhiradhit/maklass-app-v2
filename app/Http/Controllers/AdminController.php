@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Room;
 class AdminController extends Controller
 {
     //
     public function index(){
-        return view('landing.admin.dashboard');
+        $data = Room::all();
+        return view('landing.admin.dashboard', compact('data'));
     }
+
 }

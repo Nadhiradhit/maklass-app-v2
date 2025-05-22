@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserAdminController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,6 +24,7 @@ route::post('/reset-password', [LoginController::class, "updatePassword"])->name
 route::get('/register', [LoginController::class, "register"])->name('register');
 route::post('/register', [LoginController::class, "handleRegister"])->name('register.submit');
 
+
 // User Route
 Route::middleware('user')->prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, "index"])->name('landing.user.dashboard');
@@ -30,4 +33,13 @@ Route::middleware('user')->prefix('dashboard')->group(function () {
 // Admin Route
 Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
     Route::get('/', [AdminController::class, "index"])->name('landing.admin.dashboard');
+
+    // Room Routes
+    Route::get('/room', [RoomController::class, "index"])->name('landing.admin.room.dashboard');
+    Route::post('/room', [RoomController::class, "create"])->name('landing.admin.room.create');
+    Route::delete('/room/{id}', [RoomController::class, "delete"])->name('landing.admin.room.delete');
+    Route::put('/room/{id}', [RoomController::class, "update"])->name('landing.admin.room.update');
+
+    // User Routes
+    Route::get('/user', [UserAdminController::class, "index"])->name('landing.admin.user.dashboard');
 });

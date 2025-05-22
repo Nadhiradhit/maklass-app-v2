@@ -13,7 +13,7 @@
         <x-navbar.sidebar :sidebarOpen="'sidebarOpen'"/>
 
         <div class="w-full">
-            <header class="flex items-center justify-between px-3 sm:px-4 lg:px-6 py-3 xs:py-4 sm:h-16 md:h-18 lg:h-20 bg-primary-100/50 shadow-sm">
+            <header class="flex items-center justify-between px-3 sm:px-4 lg:px-6 py-3 xs:py-4 sm:h-16 md:h-18 lg:h-20  shadow-sm">
                 <div class="flex items-center">
 
                     <button @click="sidebarOpen = !sidebarOpen" class="md:hidden mr-4 text-secondary-900">
@@ -51,5 +51,6 @@
     </div>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </body>
 </html>
