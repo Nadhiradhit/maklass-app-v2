@@ -162,7 +162,7 @@
                             x-transition:leave-start="opacity-100 transform translate-y-0"
                             x-transition:leave-end="opacity-0 transform -translate-y-2" class="p-2 absolute w-full h-auto bg-[#1d5a78] rounded-md space-y-2 mt-4">
                                 <li class="pl-8 py-1 hover:bg-[#246b8f] rounded-md transition-colors duration-200">
-                                    <x-navbar.nav-link :active="request()->routeIs('monitoring-class')" href="/monitoring-class">
+                                    <x-navbar.nav-link :active="request()->routeIs('landing.user.room.room-booking')" href="{{ route('landing.user.room.room-booking')}}">
                                         Permintaan Ruangan Kelas
                                     </x-navbar.nav-link>
                                 </li>

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Booking extends Model
 {
@@ -15,21 +15,24 @@ class Booking extends Model
     protected $table = 'booking_laboratory';
 
     protected $fillable = [
+        'activity',
+        'responsible',
         'date_booking',
         'time_booking',
         'status',
         'user_id',
         'room_laboratory_id',
+        'file_attachment'
     ];
 
     // Relation Between Booking and Room
-    public function room(): HasMany
+    public function room(): BelongsTo
     {
-        return $this->hasMany(Room::class);
+        return $this->belongsTo(Room::class, 'room_laboratory_id');
     }
 
-    public function user(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }
