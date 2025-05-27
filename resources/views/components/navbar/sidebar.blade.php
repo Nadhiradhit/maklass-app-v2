@@ -85,12 +85,12 @@
                                 x-transition:leave-end="opacity-0 transform -translate-y-2"
                                 class="p-2 w-full bg-[#1d5a78] rounded-md space-y-4 mt-2">
                                 <li class="pl-8 py-1 hover:bg-[#246b8f] rounded-md transition-colors duration-200">
-                                    <x-navbar.nav-link :active="request()->routeIs('dashboard-admin.room')" href="{{ route('landing.admin.room.dashboard') }}">
+                                    <x-navbar.nav-link :active="request()->routeIs('landing.admin.room.dashboard')" href="{{ route('landing.admin.room.dashboard') }}">
                                         Monitoring Ruangan Lab
                                     </x-navbar.nav-link>
                                 </li>
                                 <li class="pl-8 py-1 hover:bg-[#246b8f] rounded-md transition-colors duration-200">
-                                    <x-navbar.nav-link :active="request()->routeIs('monitoring-class')" href="/monitoring-class">
+                                    <x-navbar.nav-link :active="request()->routeIs('landing.admin.booking.dashboard')" href="{{ route('landing.admin.booking.dashboard')}}">
                                         Permintaan Ruangan Lab
                                     </x-navbar.nav-link>
                                 </li>
@@ -128,7 +128,7 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                        <x-navbar.nav-link :active="request()->routeIs('dashboard.user')" href="/dashboard-user">
+                        <x-navbar.nav-link :active="request()->routeIs('landing.user.dashboard')" href="{{ route('landing.user.dashboard') }}" class="block">
                             Beranda
                         </x-navbar.nav-link>
                     </li>
