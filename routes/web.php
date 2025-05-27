@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookingUserRoomController;
+use App\Http\Controllers\BookingAdminRoomController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,6 +31,10 @@ route::post('/register', [LoginController::class, "handleRegister"])->name('regi
 // User Route
 Route::middleware('user')->prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, "index"])->name('landing.user.dashboard');
+
+    // Room Routes
+    Route::get('/booking', [BookingUserRoomController::class, "index"])->name('landing.user.room.room-booking');
+    Route::post('/booking', [BookingUserRoomController::class, "store"])->name('landing.user.room.room-booking.store');
 });
 
 // Admin Route
@@ -40,6 +47,16 @@ Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
     Route::delete('/room/{id}', [RoomController::class, "delete"])->name('landing.admin.room.delete');
     Route::put('/room/{id}', [RoomController::class, "update"])->name('landing.admin.room.update');
 
+    // Schedule Routes
+    Route::get('/schedule', [ScheduleController::class, "index"])->name('landing.admin.schedule.dashboard');
+
+    // Booking Routes
+    Route::get('/booking', [BookingAdminRoomController::class, "index"])->name('landing.admin.booking.dashboard');
+    Route::put('/booking/{id}', [BookingAdminRoomController::class, "update"])->name('landing.admin.booking.update');
+
     // User Routes
     Route::get('/user', [UserAdminController::class, "index"])->name('landing.admin.user.dashboard');
+    Route::post('/user', [UserAdminController::class, "create"])->name('landing.admin.user.create');
+    Route::put('/user/{id}', [UserAdminController::class, "update"])->name('landing.admin.user.update');
+    Route::delete('/user/{id}', [UserAdminController::class, "delete"])->name('landing.admin.user.delete');
 });

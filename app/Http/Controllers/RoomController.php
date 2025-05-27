@@ -17,11 +17,13 @@ class RoomController extends Controller
         $request->validate([
             'room' => 'required',
             'name' => 'required',
+            'description' => 'required',
         ]);
 
         $room = new \App\Models\Room();
         $room->room = $request->room;
         $room->name = $request->name;
+        $room->description = $request->description;
         $room->save();
 
         return redirect()->route('landing.admin.room.dashboard')
@@ -40,11 +42,13 @@ class RoomController extends Controller
         $request->validate([
             'room' => 'required',
             'name' => 'required',
+            'description' => 'required',
         ]);
 
         $room = \App\Models\Room::findOrFail($id);
         $room->room = $request->room;
         $room->name = $request->name;
+        $room->description = $request->description;
         $room->save();
 
         return redirect()->route('landing.admin.room.dashboard')->with('success', 'Ruangan berhasil diupdate');

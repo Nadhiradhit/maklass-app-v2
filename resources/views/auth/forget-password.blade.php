@@ -39,7 +39,7 @@
 
                 <x-form.input
                     type="password"
-                    id="password"
+                    id="new_password"
                     name="password"
                     label="Masukkan Password Baru"
                     placeholder="Masukkan Password Baru Anda"
@@ -49,7 +49,7 @@
 
                 <x-form.input
                     type="password"
-                    id="password"
+                    id="confirm_password"
                     name="password_confirmation"
                     label="Masukkan Konfirmasi Password"
                     placeholder="Masukkan Konfirmasi Password Anda"
@@ -70,19 +70,34 @@
         </div>
     </div>
 
-    @push('scripts')
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const password = document.getElementById('password');
-            const togglePassword = document.getElementById('togglePassword');
+            const newPassword = document.getElementById('new_password');
+            const confirmPassword = document.getElementById('confirm_password');
+            const toggleNewPassword = document.getElementById('toggleNewPassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
 
-            if (togglePassword && password) {
+            if (toggleNewPassword && newPassword) {
                 const eyeIcon = document.getElementById('eyeIcon');
                 const eyeSlashIcon = document.getElementById('eyeSlashIcon');
 
-                togglePassword.addEventListener('click', function() {
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
+                toggleNewPassword.addEventListener('click', function() {
+                    const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                    newPassword.setAttribute('type', type);
+
+                    eyeIcon.classList.toggle('hidden');
+                    eyeSlashIcon.classList.toggle('hidden');
+                });
+            }
+
+            if (toggleConfirmPassword && confirmPassword) {
+                const eyeIcon = document.getElementById('eyeIcon2');
+                const eyeSlashIcon = document.getElementById('eyeSlashIcon2');
+
+                toggleConfirmPassword.addEventListener('click', function() {
+                    const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                    confirmPassword.setAttribute('type', type);
 
                     eyeIcon.classList.toggle('hidden');
                     eyeSlashIcon.classList.toggle('hidden');
@@ -90,5 +105,5 @@
             }
         });
     </script>
-    @endpush
+
 </x-layouts.layout-auth>
