@@ -23,6 +23,7 @@ class BookingUserRoomController extends Controller
         $validated = $request->validate([
             'activity' => 'required|string|max:255',
             'responsible' => 'required|string|max:255',
+            'purpose' => 'required|string|max:255',
             'date_booking' => 'required|date',
             'time_booking' => 'required',
             'room_laboratory_id' => 'required|exists:room_laboratory,id',

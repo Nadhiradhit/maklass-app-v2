@@ -43,6 +43,10 @@
                                     <input type="text" name="responsible" id="responsible" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                 </div>
                             </div>
+                            <div class="mt-4">
+                                <label for="purpose" class="block text-sm font-medium text-gray-700">Keperluan :</label>
+                                <textarea name="purpose" id="purpose" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2"></textarea>
+                            </div>
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
                                 <div class="md:w-1/2 w-full">
                                     <label for="date_booking" class="block text-sm font-medium text-gray-700">Hari dan tanggal :</label>
@@ -125,6 +129,7 @@
                         <th scope="col" class="px-6 py-3 w-20">No</th>
                         <th scope="col" class="px-6 py-3">Kegiatan</th>
                         <th scope="col" class="px-6 py-3">Penanggung Jawab</th>
+                        <th scope="col" class="px-6 py-3">Keperluan</th>
                         <th scope="col" class="px-6 py-3">Ruangan</th>
                         <th scope="col" class="px-6 py-3">Tanggal</th>
                         <th scope="col" class="px-6 py-3">Waktu</th>
@@ -141,6 +146,9 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $data->responsible }}
+                            </td>
+                            <td>
+                                {{ $data->purpose}}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $data->room->name }} ({{ $data->room->room }})

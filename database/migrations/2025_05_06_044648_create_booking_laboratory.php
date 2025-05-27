@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('activity');
             $table->string('responsible');
+            $table->string('purpose');
             $table->date('date_booking');
             $table->time('time_booking');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');

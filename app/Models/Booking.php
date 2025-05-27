@@ -17,6 +17,7 @@ class Booking extends Model
     protected $fillable = [
         'activity',
         'responsible',
+        'purpose',
         'date_booking',
         'time_booking',
         'status',

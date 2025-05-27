@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookingUserRoomController;
+use App\Http\Controllers\BookingAdminRoomController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
@@ -48,6 +49,10 @@ Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
 
     // Schedule Routes
     Route::get('/schedule', [ScheduleController::class, "index"])->name('landing.admin.schedule.dashboard');
+
+    // Booking Routes
+    Route::get('/booking', [BookingAdminRoomController::class, "index"])->name('landing.admin.booking.dashboard');
+    Route::put('/booking/{id}', [BookingAdminRoomController::class, "update"])->name('landing.admin.booking.update');
 
     // User Routes
     Route::get('/user', [UserAdminController::class, "index"])->name('landing.admin.user.dashboard');
