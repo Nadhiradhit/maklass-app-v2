@@ -13,8 +13,7 @@ class BookingAdminRoomController extends Controller
     public function index()
     {
         $data = Booking::with(['user', 'room'])->get();
-        $laboratories = Room::all();
-        return view('landing.admin.request.room.request-room', compact('data', 'laboratories'));
+        return view('landing.admin.request.room.request-room', compact('data'));
     }
 
     public function update(Request $request, $id)
