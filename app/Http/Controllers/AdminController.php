@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Booking;
 class AdminController extends Controller
 {
     //
     public function index(){
-        $data = Room::all();
-        return view('landing.admin.dashboard', compact('data'));
+        $data = Booking::with(['user', 'room'])->where('status', 'pending')->limit(5)->get();
+        $laboratories = Room::all();
+        return view('landing.admin.dashboard', compact('data', 'laboratories'));
     }
 
 }
