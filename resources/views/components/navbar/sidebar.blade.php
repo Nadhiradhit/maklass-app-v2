@@ -133,6 +133,22 @@
                         </x-navbar.nav-link>
                     </li>
 
+                    <li class="flex items-center gap-2 p-2 rounded-md hover:bg-[#1d5a78]">
+                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_257_1858)">
+                                <path d="M4 17.3333H14.6667V4H4V17.3333ZM4 28H14.6667V20H4V28ZM17.3333 28H28V14.6667H17.3333V28ZM17.3333 4V12H28V4H17.3333Z" fill="#FEFEFE"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_257_1858">
+                                    <rect width="32" height="32" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <x-navbar.nav-link :active="request()->routeIs('landing.user.schedule.dashboard')" href="{{ route('landing.user.schedule.dashboard') }}" class="block">
+                            Jadwal Lab
+                        </x-navbar.nav-link>
+                    </li>
+
                     {{-- Dropdown List Link --}}
                     <div x-data="{ openDropdown: false }" class="w-full">
                         <li class="relative cursor-pointer">

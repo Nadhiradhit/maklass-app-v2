@@ -24,7 +24,7 @@
             </a>
         </div>
 
-        <h2 class="text-2xlvit">Peminjaman Ruangan</h2>
+        <h2 class="text-2xl font-semibold">Peminjaman Ruangan</h2>
 
         @if(request('show_modal'))
             <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">

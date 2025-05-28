@@ -8,6 +8,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ScheduleDashboardController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +36,9 @@ Route::middleware('user')->prefix('dashboard')->group(function () {
     // Room Routes
     Route::get('/booking', [BookingUserRoomController::class, "index"])->name('landing.user.room.room-booking');
     Route::post('/booking', [BookingUserRoomController::class, "store"])->name('landing.user.room.room-booking.store');
+
+    // Schedule Dashboard
+    Route::get('/schedule', [ScheduleDashboardController::class, "index"])->name('landing.user.schedule.dashboard');
 });
 
 // Admin Route
