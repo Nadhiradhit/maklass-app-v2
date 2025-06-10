@@ -4,7 +4,6 @@
 
 @php
     $currentPath = request()->path();
-
     $today = \Carbon\Carbon::now()->toDateString();
     $week = \Carbon\Carbon::now()->addDays(7)->toDateString();
 @endphp
@@ -25,86 +24,6 @@
         </div>
 
         <h2 class="text-2xl font-semibold">Peminjaman Ruangan</h2>
-
-        {{-- @if(request('show_modal'))
-            <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
-                <div class="relative p-5 border w-full md:w-1/2 shadow-lg rounded-md bg-white">
-                    <div class="mt-3">
-                        <h3 class="text-lg font-semibold leading-6 text-gray-900 mb-4">Tambah Peminjaman Lab</h3>
-                        <form action="{{ route('landing.user.room.room-booking.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="flex flex-col md:flex-row gap-4 mt-4">
-                                <div class="md:w-1/2 w-full">
-                                    <label for="booking_purpose" class="block text-sm font-medium text-gray-700">Acara atau kegiatan :</label>
-                                    <input type="text" name="booking_purpose" id="booking_purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
-                                </div>
-                                <div class="md:w-1/2 w-full">
-                                    <label for="responsible" class="block text-sm font-medium text-gray-700">Penanggung jawab :</label>
-                                    <input type="text" name="responsible" id="responsible" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <label for="purpose" class="block text-sm font-medium text-gray-700">Keperluan :</label>
-                                <textarea name="purpose" id="purpose" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2"></textarea>
-                            </div>
-                            <div class="flex flex-col md:flex-row gap-4 mt-4">
-                                <div class="md:w-1/2 w-full">
-                                    <label for="date_booking" class="block text-sm font-medium text-gray-700">Hari dan tanggal :</label>
-                                    <input type="date" name="date_booking" id="date_booking" min="{{ $today }}" max="{{ $week }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
-                                    <span id="date-error" class="text-red-500 text-xs"></span>
-                                </div>
-                                <div class="md:w-1/2 w-full">
-                                    <label for="time_booking" class="block text-sm font-medium text-gray-700">Waktu :</label>
-                                    <select name="time_booking" id="time_booking" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
-                                        <option value="">Pilih Waktu</option>
-                                        <optgroup label="Pagi">
-                                            <option value="07:30 - 08:30">07:30 - 08:30</option>
-                                            <option value="08:30 - 09:30">08:30 - 09:30</option>
-                                            <option value="09:30 - 10:00">09:30 - 10:00</option>
-                                            <option value="10:30 - 11:30">10:30 - 11:30</option>
-                                            <option value="11:30 - 12:00">11:30 - 12:00</option>
-                                        </optgroup>
-                                        <optgroup label="Istirahat">
-                                            <option value="10:00 - 10:30" disabled>10:00 - 10:30 (Istirahat)</option>
-                                            <option value="12:00 - 13:00" disabled>12:00 - 13:00 (Istirahat Siang)</option>
-                                        </optgroup>
-                                        <optgroup label="Siang">
-                                            <option value="13:00 - 14:00">13:00 - 14:00</option>
-                                            <option value="14:00 - 15:00">14:00 - 15:00</option>
-                                            <option value="15:00 - 16:00">15:00 - 16:00</option>
-                                            <option value="16:00 - 17:00">16:00 - 17:00</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <label for="room_laboratory_id" class="block text-sm font-medium text-gray-700">Ruangan yang akan dipinjam :</label>
-                                <select name="room_laboratory_id" id="room_laboratory_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
-                                    <option value="">Pilih Ruangan</option>
-                                    @foreach($laboratories as $lab)
-                                        <option value="{{ $lab->id }}">{{ $lab->name }} {{ $lab->room }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mt-4">
-                                <label for="file_attachment" class="block text-sm font-medium text-gray-700">Lampiran :</label>
-                                <input type="file" placeholder="Lampiran" name="file_attachment" id="file_attachment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
-                            </div>
-                            <div class="flex justify-end space-x-3 mt-5">
-                                <a href="{{ route('landing.user.room.room-booking') }}"
-                                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
-                                    Batal
-                                </a>
-                                <button type="submit"
-                                    class="px-4 py-2 bg-secondary-800 text-white rounded-md hover:bg-secondary-700">
-                                    Simpan
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endif --}}
 
         @if(request('show_modal'))
             <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
