@@ -16,9 +16,11 @@ class Schedule extends Model
 
     protected $fillable = [
         'room_laboratory_id',
+        'semester_id',
         'title_schedule',
-        'lecturer',
+        'lecturer_name',
         'description',
+        'schedule_day_of_week',
         'schedule_start_datetime',
         'schedule_end_datetime',
         'status',
@@ -29,4 +31,8 @@ class Schedule extends Model
         return $this->belongsTo(Room::class, 'room_laboratory_id');
     }
 
+    public function semester(): BelongsTo
+    {
+        return $this->belongsTo(Semester::class, 'semester_id');
+    }
 }

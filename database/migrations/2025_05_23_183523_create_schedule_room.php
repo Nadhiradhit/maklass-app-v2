@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('schedule_room', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_laboratory_id')->constrained('room_laboratory')->onDelete('cascade');
+            $table->foreignId('semester_id')->constrained('semesters')->onDelete('cascade');
             $table->string('title_schedule');
-            $table->string('lecturer');
+            $table->string('lecturer_name');
             $table->string('description');
+            $table->string('schedule_day_of_week');
             $table->dateTime('schedule_start_datetime');
             $table->dateTime('schedule_end_datetime');
-            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
