@@ -56,8 +56,31 @@
             </div>
         @endif
 
-        <div>
-
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
+            <table class="w-full text-sm text-left rtl:text-right text-secondary-800">
+                <thead class="text-xs text-white uppercase bg-secondary-800 h-20">
+                    <tr class="text-center">
+                        <th scope="col" class="px-6 py-3 w-20 ">
+                            No
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nama Ruangan
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Jadwal Pembelajaran
+                        </th>
+                        <th scope="col" class="px-6 py-3 w-1/3">
+                            Deskripsi
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Dosen
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 @endsection

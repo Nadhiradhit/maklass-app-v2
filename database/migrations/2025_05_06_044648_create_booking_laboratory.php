@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('booking_purpose');
             $table->string('responsible');
             $table->string('purpose');
-            $table->date('date_booking');
-            $table->time('time_booking');
+            $table->dateTime('booking_start_datetime');
+            $table->dateTime('booking_end_datetime');
             $table->enum('status', ['pending', 'approved', 'rejected', 'cancelled'])->default('pending');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('room_laboratory_id')->constrained('room_laboratory')->onDelete('cascade');

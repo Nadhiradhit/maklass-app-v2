@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('room_laboratory_id')->constrained('room_laboratory')->onDelete('cascade');
             $table->string('title_schedule');
+            $table->string('lecturer');
             $table->string('description');
-            $table->date('date');
-            $table->time('start_time');
+            $table->dateTime('schedule_start_datetime');
+            $table->dateTime('schedule_end_datetime');
             $table->time('end_time');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
