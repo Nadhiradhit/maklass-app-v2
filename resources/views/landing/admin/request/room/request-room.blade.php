@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 mx-auto">
-        <h1 class="text-2xl font-semibold text-secondary-900">Room Request</h1>
+        <h1 class="text-2xl font-semibold text-secondary-900">Permintan Peminjaman Ruangan Lab</h1>
 
 
         @if(session('success'))
@@ -27,11 +27,12 @@
                 <thead class="text-xs text-white uppercase bg-secondary-800 h-20">
                     <tr class="text-center">
                         <th scope="col" class="px-6 py-3 w-20">No</th>
+                        <th scope="col" class="px-6 py-3">Peminjam</th>
                         <th scope="col" class="px-6 py-3">Kegiatan</th>
                         <th scope="col" class="px-6 py-3">Penanggung Jawab</th>
                         <th scope="col" class="px-6 py-3">Ruangan</th>
-                        <th scope="col" class="px-6 py-3">Tanggal</th>
-                        <th scope="col" class="px-6 py-3">Waktu</th>
+                        <th scope="col" class="px-6 py-3">Tanggal Peminjaman</th>
+                        <th scope="col" class="px-6 py-3">Status</th>
                         <th scope="col" class="px-6 py-3">Lampiran</th>
                         <th scope="col" class="px-6 py-3"></th>
                     </tr>
@@ -40,6 +41,9 @@
                     @foreach($data as $index => $data)
                         <tr class="bg-white border-b hover:bg-secondary-50">
                             <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
+                            <td>
+                                {{ $data->user->name }}
+                            </td>
                             <td class="px-6 py-4">
                                 {{ $data->booking_purpose }}
                             </td>
@@ -50,10 +54,22 @@
                                 {{ $data->room->name }} {{ $data->room->room }}
                             </td>
                             <td class="px-6 py-4 text-center">
-                                {{ \Carbon\Carbon::parse($data->date_booking)->format('d F Y') }}
+                                {{ $data->booking_start_datetime ? \Carbon\Carbon::parse($data->booking_start_datetime)->format('d F Y') : '-' }}
                             </td>
-                            <td class="px-6 py-4 text-center">
-                                {{ $data->time_booking }}
+                            <td>
+                                 @if($data->status == 'pending')
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                        Menunggu
+                                    </span>
+                                @elseif($data->status == 'approved')
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                        Disetujui
+                                    </span>
+                                @else
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                        Ditolak
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 text-center">
                                 @if($data->file_attachment)
@@ -67,49 +83,55 @@
                             <td>
                                 <div class="flex justify-center">
                                     <a href="{{ route('landing.admin.booking.dashboard', ['detail_id' =>  $data->id]) }}" class="py-2 px-4 bg-secondary-800 text-white rounded hover:bg-secondary-700 transition-colors">
-                                        Lihat
+                                        Lihat Detail
                                     </a>
                                     @if(request('detail_id') == $data->id)
                                         <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center text-start">
                                             <div class="relative p-5 border w-200 md:w-1/2 shadow-lg rounded-md bg-white">
-                                                <div class="flex gap-4">
+                                                <div class="flex gap-8">
                                                     <div>
-                                                        <h4 class="text-lg font-semibold">Ruangan Lab</h4>
+                                                        <h4 class="text-lg">Ruangan Lab</h4>
                                                         <h2 class="text-xl font-semibold">{{ $data->room->name }}</h2>
                                                     </div>
                                                     <div>
-                                                        <h4 class="text-lg font-semibold">Kegiatan / Acara</h4>
+                                                        <h4 class="text-lg">Kegiatan / Acara</h4>
                                                         <h2 class="text-xl font-semibold">{{ $data->booking_purpose }}</h2>
                                                     </div>
                                                 </div>
-                                                <div class="flex justify-between mt-4">
+                                                <div class="flex justify-between items-center mt-4">
                                                     <div>
-                                                        <h4 class="text-lg font-semibold">Penanggung Jawab</h4>
+                                                        <h4 class="text-lg">Penanggung Jawab</h4>
                                                         <h2 class="text-xl font-semibold">{{ $data->responsible }}</h2>
                                                     </div>
                                                     <div class="">
-                                                        <h4 class="text-lg font-semibold">Jadwal Peminjaman</h4>
-                                                        @php
-                                                            Carbon\Carbon::setLocale('id');
-                                                            $parsedDate = Carbon\Carbon::parse($data->date_booking);
-                                                        @endphp
+                                                        <h4 class="text-lg">Jadwal Peminjaman</h4>
                                                         <h2 class="text-xl font-semibold">
-                                                            {{ $parsedDate->translatedFormat('l, d F Y') }}
-                                                            @if($data->time_booking)
-                                                                , {{ $data->time_booking }}
-                                                            @endif
+                                                            @php
+                                                                \Carbon\Carbon::setLocale('id');
+                                                                setlocale(LC_TIME, 'id_ID.UTF-8', 'id_ID', 'indonesian');
+                                                                $startDate = $data->booking_start_datetime
+                                                                    ? \Carbon\Carbon::parse($data->booking_start_datetime)->locale('id')
+                                                                    : null;
+                                                                $endDate = $data->booking_end_datetime
+                                                                    ? \Carbon\Carbon::parse($data->booking_end_datetime)->locale('id')
+                                                                    : null;
+                                                            @endphp
+                                                            {{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }},
+                                                            <br>
+                                                            {{ $data->booking_start_datetime ? \Carbon\Carbon::parse($data->booking_start_datetime)->format('H:i') : '-' }} -
+                                                            {{ $data->booking_end_datetime ? \Carbon\Carbon::parse($data->booking_end_datetime)->format('H:i') : '-' }}
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <div class="flex flex-col mt-4">
-                                                    <h4 class="text-lg font-semibold">Deskripsi Kegiatan</h4>
+                                                    <h4 class="text-lg">Deskripsi Kegiatan</h4>
                                                     <div class="bg-gray-100 p-4 rounded-md h-32 overflow-y-auto">
                                                         <p class="text-gray-700">{{ $data->purpose }}</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="flex items-center mt-4">
-                                                    <h4 class="text-lg font-semibold">Di buat pada: {{ $data->created_at->format('d F Y') }}</h4>
+                                                    <h4 class="text-lg">Di buat pada: <span class="font-semibold">{{ $data->created_at->isoFormat('dddd, DD MMMM YYYY') }}</span></h4>
                                                     @if($data->status == 'pending')
                                                     <div class="flex space-x-2 ml-auto">
                                                         <form action="{{ route('landing.admin.booking.update', ['id' => $data->id]) }}" method="post">
@@ -131,11 +153,17 @@
                                                         </form>
                                                     </div>
                                                 @else
-                                                <div class="ml-auto">
-                                                    <span class="px-4 py-2 bg-gray-300 text-gray-700 rounded">
-                                                        {{ ucfirst($data->status) }}
-                                                    </span>
-                                                </div>
+                                                    <div class="ml-auto">
+                                                        @if($data->status == 'approved')
+                                                            <span class="px-4 py-2 bg-green-600 text-white rounded">
+                                                                Disetujui
+                                                            </span>
+                                                        @elseif($data->status == 'rejected')
+                                                            <span class="px-4 py-2 bg-red-600 text-white rounded">
+                                                                Ditolak
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                                 @endif
                                                 </div>
 

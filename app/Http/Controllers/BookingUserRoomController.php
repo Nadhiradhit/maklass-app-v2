@@ -30,7 +30,17 @@ class BookingUserRoomController extends Controller
             'booking_purpose' => 'required|string|max:255',
             'responsible' => 'required|string|max:255',
             'purpose' => 'required|string|max:255',
-            'booking_start_datetime' => 'required|date|after_or_equal:today',
+            'booking_start_datetime' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $startDateTime = Carbon::parse($value);
+                    if ($startDateTime->isToday() && $startDateTime->lt(Carbon::now())) {
+                        $fail('Waktu peminjaman tidak boleh waktu yang sudah berlalu.');
+                    }
+                },
+                'after_or_equal:today',
+            ],
             'booking_end_datetime' => 'required|date|after:booking_start_datetime',
             'room_laboratory_id' => 'required|exists:room_laboratory,id',
             'file_attachment' => 'nullable|file|max:10240'
@@ -67,8 +77,8 @@ class BookingUserRoomController extends Controller
         ];
 
         foreach ($breakTimes as $break) {
-            // Check if the booking overlaps with any break interval
-            if ($startDateTime->lt($break['end']) && $endDateTime->gt($break['start'])) {
+            if ($startDateTime->lt($break['end']->setDate($startDateTime->year, $startDateTime->month, $startDateTime->day)) &&
+                $endDateTime->gt($break['start']->setDate($endDateTime->year, $endDateTime->month, $endDateTime->day))) {
                 return redirect()->back()->withErrors([
                     'booking_start_datetime' => 'Peminjaman tidak boleh mencakup waktu istirahat (10:00-10:30 atau 12:00-13:00).'
                 ])->withInput();

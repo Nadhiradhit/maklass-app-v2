@@ -28,13 +28,18 @@
                     <form action="{{ route('landing.admin.room.create') }}" method="POST" class="space-y-4">
                         @csrf
                         <div>
-                            <label for="room_number" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
-                            <input type="text" name="room_number" id="room_number" value="{{ old('room') }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2 uppercase">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Nama Lab</label>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                         </div>
                         <div>
-                            <label for="room_name" class="block text-sm font-medium text-gray-700">Nama Ruangan</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                            <label for="location" class="block text-sm font-medium text-gray-700">Lokasi</label>
+                            <input type="text" name="location" id="location" value="{{ old('location') }}"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                        </div>
+                        <div>
+                            <label for="capacity" class="block text-sm font-medium text-gray-700">Kapasitas Lab</label>
+                            <input type="text" name="capacity" id="capacity" value="{{ old('capacity') }}"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                         </div>
                         <div>
@@ -81,13 +86,16 @@
                             No
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Kode Ruangan
+                            Nama Lab
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Nama Ruangan
+                            Lokasi Lab
                         </th>
                         <th scope="col" class="px-6 py-3 w-1/3">
                             Deskripsi
+                        </th>
+                        <th scope="col" class="px-6 py-3 w-1/4">
+                            Kapasitas
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -101,13 +109,16 @@
                             {{ $loop->iteration }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->room_number }}
-                        </td>
-                        <td class="px-6 py-4">
                             {{ $item->name }}
                         </td>
-                        <td class="px-6 py-4 text-justify">
+                        <td class="px-6 py-4">
+                            {{ $item->location }}
+                        </td>
+                        <td class="px-6 py-4">
                             {{ $item->description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $item->capacity }}
                         </td>
                         <td class="px-6 py-4 space-x-2">
                             <a href="{{ route('landing.admin.room.dashboard', ['edit_id' => $item->id]) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
@@ -120,13 +131,18 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div>
-                                                    <label for="room_number" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
-                                                    <input type="text" name="room_number" id="room_number" value="{{ old('room_number', $item->room_number) }}"
+                                                    <label for="name" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
+                                                    <input type="text" name="name" id="name" value="{{ old('name', $item->name) }}"
                                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                                 </div>
                                                 <div>
-                                                    <label for="name" class="block text-sm font-medium text-gray-700">Nama Ruangan</label>
-                                                    <input type="text" name="name" id="name" value="{{ old('name', $item->name) }}"
+                                                    <label for="location" class="block text-sm font-medium text-gray-700">Nama Ruangan</label>
+                                                    <input type="text" name="location" id="location" value="{{ old('location', $item->location) }}"
+                                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                                                </div>
+                                                 <div>
+                                                    <label for="capacity" class="block text-sm font-medium text-gray-700">Nama Ruangan</label>
+                                                    <input type="text" name="capacity" id="capacity" value="{{ old('capacity', $item->capacity) }}"
                                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                                 </div>
                                                 <div>

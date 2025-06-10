@@ -152,15 +152,15 @@
                             <td class="px-6 py-4 text-center">
                                 @if($data->status == 'pending')
                                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                        Pending
+                                        Menunggu Persetujuan
                                     </span>
                                 @elseif($data->status == 'approved')
                                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                        Approved
+                                        Disetujui
                                     </span>
                                 @else
                                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                        Rejected
+                                        Ditolak
                                     </span>
                                 @endif
                             </td>
