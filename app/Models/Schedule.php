@@ -16,6 +16,7 @@ class Schedule extends Model
         'date',
         'start_time',
         'end_time',
+        'status',
     ];
 
     public function room(): BelongsTo

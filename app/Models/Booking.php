@@ -15,7 +15,7 @@ class Booking extends Model
     protected $table = 'booking_laboratory';
 
     protected $fillable = [
-        'activity',
+        'booking_purpose',
         'responsible',
         'purpose',
         'date_booking',

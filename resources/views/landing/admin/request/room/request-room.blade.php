@@ -41,13 +41,13 @@
                         <tr class="bg-white border-b hover:bg-secondary-50">
                             <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
                             <td class="px-6 py-4">
-                                {{ $data->activity }}
+                                {{ $data->booking_purpose }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $data->responsible }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $data->room->name }} ({{ $data->room->room }})
+                                {{ $data->room->name }} {{ $data->room->room }}
                             </td>
                             <td class="px-6 py-4 text-center">
                                 {{ \Carbon\Carbon::parse($data->date_booking)->format('d F Y') }}
@@ -71,7 +71,7 @@
                                     </a>
                                     @if(request('detail_id') == $data->id)
                                         <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center text-start">
-                                            <div class="relative p-5 border w-128 shadow-lg rounded-md bg-white">
+                                            <div class="relative p-5 border w-200 md:w-1/2 shadow-lg rounded-md bg-white">
                                                 <div class="flex gap-4">
                                                     <div>
                                                         <h4 class="text-lg font-semibold">Ruangan Lab</h4>
@@ -79,40 +79,39 @@
                                                     </div>
                                                     <div>
                                                         <h4 class="text-lg font-semibold">Kegiatan / Acara</h4>
-                                                        <h2 class="text-xl font-semibold">{{ $data->activity }}</h2>
+                                                        <h2 class="text-xl font-semibold">{{ $data->booking_purpose }}</h2>
                                                     </div>
                                                 </div>
-                                                <div>
+                                                <div class="flex justify-between mt-4">
                                                     <div>
                                                         <h4 class="text-lg font-semibold">Penanggung Jawab</h4>
                                                         <h2 class="text-xl font-semibold">{{ $data->responsible }}</h2>
                                                     </div>
+                                                    <div class="">
+                                                        <h4 class="text-lg font-semibold">Jadwal Peminjaman</h4>
+                                                        @php
+                                                            Carbon\Carbon::setLocale('id');
+                                                            $parsedDate = Carbon\Carbon::parse($data->date_booking);
+                                                        @endphp
+                                                        <h2 class="text-xl font-semibold">
+                                                            {{ $parsedDate->translatedFormat('l, d F Y') }}
+                                                            @if($data->time_booking)
+                                                                , {{ $data->time_booking }}
+                                                            @endif
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col mt-4">
+                                                    <h4 class="text-lg font-semibold">Deskripsi Kegiatan</h4>
+                                                    <div class="bg-gray-100 p-4 rounded-md h-32 overflow-y-auto">
+                                                        <p class="text-gray-700">{{ $data->purpose }}</p>
+                                                    </div>
                                                 </div>
 
-                                                <p><strong>Penanggung Jawab:</strong> {{ $data->responsible }}</p>
-                                                <p><strong>Ruangan:</strong> {{ $data->room->name }} ({{ $data->room->room }})</p>
-                                                <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($data->date_booking)->format('d F Y') }}</p>
-                                                <p><strong>Waktu:</strong> {{ $data->time_booking }}</p>
-                                                <p><strong>Status:</strong>
+                                                <div class="flex items-center mt-4">
+                                                    <h4 class="text-lg font-semibold">Di buat pada: {{ $data->created_at->format('d F Y') }}</h4>
                                                     @if($data->status == 'pending')
-                                                        Pending
-                                                    @elseif($data->status == 'approved')
-                                                        Approved
-                                                    @else
-                                                        Rejected
-                                                    @endif
-                                                </p>
-                                                @if($data->file_attachment)
-                                                    <p><strong>Lampiran:</strong>
-                                                        <a href="{{ asset('storage/attachments/' . $data->file_attachment) }}" target="_blank" class="text-blue-600 hover:text-blue-800">
-                                                            Lihat Lampiran
-                                                        </a>
-                                                    </p>
-                                                @else
-                                                    <span class="text-gray-400">-</span>
-                                                @endif
-                                                @if($data->status == 'pending')
-                                                    <div class="flex space-x-2 mt-4">
+                                                    <div class="flex space-x-2 ml-auto">
                                                         <form action="{{ route('landing.admin.booking.update', ['id' => $data->id]) }}" method="post">
                                                             @csrf
                                                             @method('PUT')
@@ -132,8 +131,16 @@
                                                         </form>
                                                     </div>
                                                 @else
-                                                    <p class="mt-4 text-sm text-gray-500">Status tidak dapat diubah.</p>
+                                                <div class="ml-auto">
+                                                    <span class="px-4 py-2 bg-gray-300 text-gray-700 rounded">
+                                                        {{ ucfirst($data->status) }}
+                                                    </span>
+                                                </div>
                                                 @endif
+                                                </div>
+
+
+
                                                 <button class="mt-4 px-4 py-2 bg-secondary-800 text-white rounded hover:bg-secondary-700 transition-colors" onclick="window.location.href='{{ route('landing.admin.booking.dashboard') }}'">Tutup</button>
                                         </div>
                                     @endif

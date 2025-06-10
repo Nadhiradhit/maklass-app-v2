@@ -28,8 +28,8 @@
                     <form action="{{ route('landing.admin.room.create') }}" method="POST" class="space-y-4">
                         @csrf
                         <div>
-                            <label for="room" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
-                            <input type="text" name="room" id="room" value="{{ old('room') }}"
+                            <label for="room_number" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
+                            <input type="text" name="room_number" id="room_number" value="{{ old('room') }}"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2 uppercase">
                         </div>
                         <div>
@@ -101,7 +101,7 @@
                             {{ $loop->iteration }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->room }}
+                            {{ $item->room_number }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->name }}
@@ -120,8 +120,8 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div>
-                                                    <label for="room" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
-                                                    <input type="text" name="room" id="room" value="{{ old('room', $item->room) }}"
+                                                    <label for="room_number" class="block text-sm font-medium text-gray-700">Kode Ruangan</label>
+                                                    <input type="text" name="room_number" id="room_number" value="{{ old('room_number', $item->room_number) }}"
                                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                                 </div>
                                                 <div>

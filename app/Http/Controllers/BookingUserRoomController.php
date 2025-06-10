@@ -21,7 +21,7 @@ class BookingUserRoomController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'activity' => 'required|string|max:255',
+            'booking_purpose' => 'required|string|max:255',
             'responsible' => 'required|string|max:255',
             'purpose' => 'required|string|max:255',
             'date_booking' => 'required|date',
@@ -36,7 +36,7 @@ class BookingUserRoomController extends Controller
         if ($request->hasFile('file_attachment')) {
             $file = $request->file('file_attachment');
             $file_ext = $file->extension();
-            $file_slug = Str::of($request->activity);
+            $file_slug = Str::of($request->booking_purpose);
             $file_name = 'Booking_' . $file_slug . '.' . $file_ext;
             $file->move(public_path('storage/attachments'), $file_name);
             $validated['file_attachment'] = $file_name;

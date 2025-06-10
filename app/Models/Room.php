@@ -13,7 +13,7 @@ class Room extends Model
     protected $table = 'room_laboratory';
 
     protected $fillable = [
-        'room',
+        'room_number',
         'name',
         'description',
     ];

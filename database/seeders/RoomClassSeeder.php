@@ -14,66 +14,53 @@ class RoomClassSeeder extends Seeder
     public function run(): void {
         DB::table('room_laboratory')->insert([
             [
-                'room' => "L1",
+                'room_number' => "L1",
                 'name' => "Laboratory 1",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L2",
+                'room_number' => "L2",
                 'name' => "Laboratory 2",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L3",
+                'room_number' => "L3",
                 'name' => "Laboratory 3",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L4",
+                'room_number' => "L4",
                 'name' => "Laboratory 4",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L5",
+                'room_number' => "L5",
                 'name' => "Laboratory 5",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L6",
+                'room_number' => "L6",
                 'name' => "Laboratory 6",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L7",
+                'room_number' => "L7",
                 'name' => "Laboratory 7",
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
-                'room' => "L8",
+                'room_number' => "L8",
                 'name' => "Laboratory 8",
-
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
-            // [
-            //     'room' => "10.9",
-            //     'name' => "Room 10.9",
-            //     'created_at' => now(),
-            //     'updated_at' => now()
-            // ],
-            // [
-            //     'room' => "10.10",
-            //     'name' => "Room 10.10",
-            //     'created_at' => now(),
-            //     'updated_at' => now()
-            // ]
         ]);
     }
 }

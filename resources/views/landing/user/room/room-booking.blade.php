@@ -35,8 +35,8 @@
                             @csrf
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
                                 <div class="md:w-1/2 w-full">
-                                    <label for="activity" class="block text-sm font-medium text-gray-700">Acara atau kegiatan :</label>
-                                    <input type="text" name="activity" id="activity" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                                    <label for="booking_purpose" class="block text-sm font-medium text-gray-700">Acara atau kegiatan :</label>
+                                    <input type="text" name="booking_purpose" id="booking_purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                 </div>
                                 <div class="md:w-1/2 w-full">
                                     <label for="responsible" class="block text-sm font-medium text-gray-700">Penanggung jawab :</label>
@@ -82,7 +82,7 @@
                                 <select name="room_laboratory_id" id="room_laboratory_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                     <option value="">Pilih Ruangan</option>
                                     @foreach($laboratories as $lab)
-                                        <option value="{{ $lab->id }}">{{ $lab->name }} ({{ $lab->room }})</option>
+                                        <option value="{{ $lab->id }}">{{ $lab->name }} {{ $lab->room }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -142,7 +142,7 @@
                         <tr class="bg-white border-b hover:bg-secondary-50">
                             <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
                             <td class="px-6 py-4">
-                                {{ $data->activity }}
+                                {{ $data->booking_purpose }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $data->responsible }}

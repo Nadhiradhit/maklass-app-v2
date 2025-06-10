@@ -22,7 +22,7 @@
 
                     <div class="relative h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 mt-2 sm:mt-4">
                         <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#1D4766] absolute right-0 bottom-0">
-                            25
+                            {{ $roomData->count() }}
                         </h1>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
                     <div class="relative h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 mt-2 sm:mt-4">
                         <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white absolute right-0 bottom-0">
-                            20
+                            {{ $roomData->count() }}
                         </h1>
                     </div>
                 </div>
