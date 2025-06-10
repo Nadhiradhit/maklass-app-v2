@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('description');
             $table->dateTime('schedule_start_datetime');
             $table->dateTime('schedule_end_datetime');
-            $table->time('end_time');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

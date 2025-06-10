@@ -4,6 +4,8 @@
 
 @php
     $currentPath = request()->path();
+    $today = \Carbon\Carbon::now()->toDateString();
+    $week = \Carbon\Carbon::now()->addDays(7)->toDateString();
 @endphp
 
 @section('content')
@@ -22,23 +24,63 @@
         @if (request('show_modal'))
             <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
                 <div class="relative p-5 border w-full md:w-1/2 shadow-lg rounded-md bg-white">
+                    <div>
+                        @if(session('success'))
+                            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                                <span class="block sm:inline">{{ session('success') }}</span>
+                            </div>
+                        @endif
+
+                        @if($errors->any())
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                     <div class="mt-3">
                         <h3 class="text-lg font-semibold leading-6 text-gray-900 mb-4">Tambah Jadwal Baru</h3>
-                        <form action="" method="POST">
+                        <form action="{{ route('landing.admin.schedule.create') }}" method="POST">
                             @csrf
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
                                 <div class="md:w-1/2 w-full">
-                                    <label for="activity" class="block text-sm font-medium text-gray-700">Jadwal pembelajaran :</label>
-                                    <input type="text" name="activity" id="activity" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                                    <label for="title_schedule" class="block text-sm font-medium text-gray-700">Mata kuliah :</label>
+                                    <input type="text" name="title_schedule" id="title_schedule" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                 </div>
                                 <div class="md:w-1/2 w-full">
-                                    <label for="responsible" class="block text-sm font-medium text-gray-700">Dosen :</label>
-                                    <input type="text" name="responsible" id="responsible" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                                    <label for="lecturer" class="block text-sm font-medium text-gray-700">Dosen :</label>
+                                    <input type="text" name="lecturer" id="lecturer" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <label for="purpose" class="block text-sm font-medium text-gray-700">Keperluan :</label>
-                                <textarea name="purpose" id="purpose" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2"></textarea>
+                                <label for="description" class="block text-sm font-medium text-gray-700">Keperluan :</label>
+                                <textarea name="description" id="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2"></textarea>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-4 mt-4">
+                                <div class="md:w-1/2 w-full">
+                                    <label for="schedule_start_datetime" class="block text-sm font-medium text-gray-700">Mulai Jam Mata Kuliah :</label>
+                                    <input type="datetime-local" name="schedule_start_datetime" id="schedule_start_datetime"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
+                                    <span id="start-datetime-error" class="text-red-500 text-xs"></span>
+                                </div>
+                                <div class="md:w-1/2 w-full">
+                                    <label for="schedule_end_datetime" class="block text-sm font-medium text-gray-700">Selesai Jam Mata Kuliah :</label>
+                                    <input type="datetime-local" name="schedule_end_datetime" id="schedule_end_datetime"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
+                                    <span id="end-datetime-error" class="text-red-500 text-xs"></span>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label for="room_laboratory_id" class="block text-sm font-medium text-gray-700">Ruangan :</label>
+                                <select name="room_laboratory_id" id="room_laboratory_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                                    <option value="">Pilih Ruangan</option>
+                                    @foreach ($rooms as $room)
+                                        <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="flex justify-end space-x-3 mt-5">
                                 <a href="{{ route('landing.admin.schedule.dashboard') }}"
