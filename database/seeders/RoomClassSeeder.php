@@ -14,53 +14,29 @@ class RoomClassSeeder extends Seeder
     public function run(): void {
         DB::table('room_laboratory')->insert([
             [
-                'room_number' => "L1",
-                'name' => "Laboratory 1",
-                'created_at' => now(),
-                'updated_at' => now(),
+                "name" => "Lab 1",
+                "location" => "Gedung A, Lantai 1",
+                "description" => "Laboratorium Komputer untuk kelas praktikum",
+                "capacity" => 30
             ],
             [
-                'room_number' => "L2",
-                'name' => "Laboratory 2",
-                'created_at' => now(),
-                'updated_at' => now(),
+                "name" => "Lab 2",
+                "location" => "Gedung A, Lantai 1",
+                "description" => "Laboratorium Fisika untuk kelas praktikum",
+                "capacity" => 30
             ],
             [
-                'room_number' => "L3",
-                'name' => "Laboratory 3",
-                'created_at' => now(),
-                'updated_at' => now(),
+                "name" => "Lab 3",
+                "location" => "Gedung A, Lantai 1",
+                "description" => "Laboratorium Kimia untuk kelas praktikum",
+                "capacity" => 25
             ],
             [
-                'room_number' => "L4",
-                'name' => "Laboratory 4",
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'room_number' => "L5",
-                'name' => "Laboratory 5",
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'room_number' => "L6",
-                'name' => "Laboratory 6",
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'room_number' => "L7",
-                'name' => "Laboratory 7",
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'room_number' => "L8",
-                'name' => "Laboratory 8",
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+                "name" => "Lab 4",
+                "location" => "Gedung A, Lantai 2",
+                "description" => "Laboratorium Biologi untuk kelas praktikum",
+                "capacity" => 25
+            ]
         ]);
     }
 }

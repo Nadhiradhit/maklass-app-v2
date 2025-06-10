@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Room;
 
 class RoomController extends Controller
 {
@@ -14,16 +15,14 @@ class RoomController extends Controller
     }
 
     public function create(Request $request){
-        $request->validate([
-            'room' => 'required',
+        $validated = $request->validate([
             'name' => 'required',
+            'location' => 'required',
+            'capacity' => 'required|integer',
             'description' => 'required',
         ]);
 
-        $room = new \App\Models\Room();
-        $room->room = $request->room;
-        $room->name = $request->name;
-        $room->description = $request->description;
+        $room = Room::create($validated);
         $room->save();
 
         return redirect()->route('landing.admin.room.dashboard')
@@ -31,7 +30,7 @@ class RoomController extends Controller
     }
 
     public function delete($id){
-        $room = \App\Models\Room::find($id);
+        $room = Room::find($id);
         $room->delete();
         return redirect()->route('landing.admin.room.dashboard')
             ->with('success', 'Ruangan berhasil dihapus');
@@ -39,16 +38,18 @@ class RoomController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'room' => 'required',
+        $validated = $request->validate([
             'name' => 'required',
+            'location' => 'required',
+            'capacity' => 'required|integer',
             'description' => 'required',
         ]);
 
-        $room = \App\Models\Room::findOrFail($id);
-        $room->room = $request->room;
-        $room->name = $request->name;
-        $room->description = $request->description;
+        $room = Room::findOrFail($id);
+        $room->name = $validated['name'];
+        $room->location = $validated['location'];
+        $room->capacity = $validated['capacity'];
+        $room->description = $validated['description'];
         $room->save();
 
         return redirect()->route('landing.admin.room.dashboard')->with('success', 'Ruangan berhasil diupdate');

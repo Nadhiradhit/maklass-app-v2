@@ -13,9 +13,10 @@ class Room extends Model
     protected $table = 'room_laboratory';
 
     protected $fillable = [
-        'room_number',
         'name',
+        'location',
         'description',
+        'capacity',
     ];
 
     public function booking(): HasMany{

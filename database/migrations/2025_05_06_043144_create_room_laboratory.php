@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('room_laboratory', function (Blueprint $table) {
             $table->id();
-            $table->string('room_number', length: 10)->unique();
-            $table->string('name', length: 20);
+            $table->string('name')->unique();
+            $table->string('location')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('capacity')->nullable();
             $table->timestamps();
         });
     }
