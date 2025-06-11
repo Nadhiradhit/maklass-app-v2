@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('lecturer_name');
             $table->string('description');
             $table->string('schedule_day_of_week');
-            $table->dateTime('schedule_start_datetime');
-            $table->dateTime('schedule_end_datetime');
+            $table->time('schedule_start_time');
+            $table->time('schedule_end_time');
             $table->timestamps();
         });
     }

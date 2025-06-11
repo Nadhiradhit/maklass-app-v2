@@ -21,9 +21,8 @@ class Schedule extends Model
         'lecturer_name',
         'description',
         'schedule_day_of_week',
-        'schedule_start_datetime',
-        'schedule_end_datetime',
-        'status',
+        'schedule_start_time',
+        'schedule_end_time',
     ];
 
     public function room(): BelongsTo
