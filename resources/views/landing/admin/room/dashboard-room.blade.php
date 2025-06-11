@@ -10,8 +10,8 @@
     <div class="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 mx-auto">
 
         <div class="flex gap-4 font-semibold">
-            <a href="{{ route('landing.admin.room.dashboard') }}" class="text-xl {{ str_contains($currentPath, 'room') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a>
-            <a href="{{ route('landing.admin.schedule.dashboard') }}" class="text-xl {{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Jadwal Lab</a>
+            <a href="{{ route('landing.admin.room.dashboard') }}" class="text-2xl {{ str_contains($currentPath, 'room') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a>
+            <a href="{{ route('landing.admin.schedule.dashboard') }}" class="text-2xl {{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Jadwal Lab</a>
         </div>
 
         <div class="flex justify-end my-4">
@@ -104,7 +104,7 @@
                 </thead>
                 <tbody class="font-semibold">
                     @foreach ($data as $item)
-                    <tr class="border-gray-200 odd:bg-white even:bg-gray-100  text-center">
+                    <tr class="border-gray-200 odd:bg-white even:bg-gray-100 text-center">
                         <th scope="row" class="px-6 py-4 whitespace-nowrap">
                             {{ $loop->iteration }}
                         </th>

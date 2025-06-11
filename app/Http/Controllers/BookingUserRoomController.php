@@ -43,7 +43,7 @@ class BookingUserRoomController extends Controller
             ],
             'booking_end_datetime' => 'required|date|after:booking_start_datetime',
             'room_laboratory_id' => 'required|exists:room_laboratory,id',
-            'file_attachment' => 'nullable|file|max:10240'
+            'file_attachment' => 'nullable|file|max:10240|mimes:pdf,doc,docx'
         ]);
 
         // Check if the booking start and end times are within the allowed range
@@ -95,24 +95,35 @@ class BookingUserRoomController extends Controller
             ->first();
 
         if ($existingApprovedBooking) {
-            // If an approved, overlapping booking is found, redirect with an error
             return redirect()->back()->withErrors([
                 'room_laboratory_id' => 'Ruangan ini sudah dipesan dan disetujui pada waktu yang Anda pilih. Silakan pilih waktu atau ruangan lain.'
             ])->withInput();
         }
 
-        // if have schedule booking
+        $bookingDayOfWeek = $startDateTime->locale('id')->dayName;
+
+        // Get the time parts in H:i format for comparison with schedule times
+        $bookingTimeStart = $startDateTime->format('H:i');
+        $bookingTimeEnd = $endDateTime->format('H:i');
+        $bookingDate = $startDateTime->toDateString();
+
+
         $existingSchedule = Schedule::where('room_laboratory_id', $roomLaboratoryId)
-            ->where(function ($query) use ($startDateTime, $endDateTime) {
+            ->where('schedule_day_of_week', $bookingDayOfWeek)
+            ->where(function ($query) use ($bookingTimeStart, $bookingTimeEnd) {
                 // Check for overlaps: new booking starts before existing ends AND new booking ends after existing starts
-                $query->where('schedule_start_datetime', '<', $endDateTime)
-                      ->where('schedule_end_datetime', '>', $startDateTime);
+                $query->where('schedule_start_time', '<', $bookingTimeEnd)
+                    ->where('schedule_end_time', '>', $bookingTimeStart);
+            })
+            ->whereHas('semester', function ($query) use ($bookingDate) {
+                $query->where('start_date', '<=', $bookingDate)
+                    ->where('end_date', '>=', $bookingDate);
             })
             ->first();
+
         if ($existingSchedule) {
-            // If an existing schedule overlaps, redirect with an error
             return redirect()->back()->withErrors([
-                'room_laboratory_id' => 'Ruangan ini sudah terjadwal pada waktu yang Anda pilih. Silakan pilih waktu atau ruangan lain.'
+                'room_laboratory_id' => 'Ruangan ini sudah terjadwal untuk perkuliahan pada waktu dan hari yang Anda pilih.'
             ])->withInput();
         }
 
@@ -128,8 +139,8 @@ class BookingUserRoomController extends Controller
             $validated['file_attachment'] = $file_name;
         }
 
-        $booking = Booking::create($validated);
-        $booking->save();
+        Booking::create($validated);
+        // dd($booking);
 
         return redirect()->back()->with('success', 'Booking request submitted successfully');
     }
