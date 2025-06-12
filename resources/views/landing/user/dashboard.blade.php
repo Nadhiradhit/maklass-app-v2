@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-8 mt-10">
+        {{-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-8 mt-10">
             <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg w-full h-full px-4 py-6">
                 <div class="flex justify-between">
                     <div class="flex items-center gap-4">
@@ -81,7 +81,7 @@
                     <a href="#" class="text-sm font-semibold text-white bg-gray-600 px-4 py-2 rounded-md">See All</a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endsection
