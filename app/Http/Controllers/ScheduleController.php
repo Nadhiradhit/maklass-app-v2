@@ -97,6 +97,7 @@ class ScheduleController extends Controller
             ])->withInput();
         }
 
+
         $validated['user_id'] = Auth::id();
         $validated['status'] = 'active';
 

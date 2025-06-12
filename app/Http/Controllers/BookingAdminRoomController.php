@@ -25,7 +25,7 @@ class BookingAdminRoomController extends Controller
 
         $booking = Booking::findOrFail($id);
 
-        $originalStatus = $booking->status; // Store original status to check if it changes to 'approved'
+        $originalStatus = $booking->status;
 
 
         if ($validated['status'] === 'approved' && $originalStatus !== 'approved') {
@@ -52,8 +52,8 @@ class BookingAdminRoomController extends Controller
             // Check for overlapping schedules
             $existingSchedule = Schedule::where('room_laboratory_id', $roomLaboratoryId)
                 ->where(function ($query) use ($startDateTime, $endDateTime) {
-                    $query->where('schedule_start_datetime', '<', $endDateTime)
-                          ->where('schedule_end_datetime', '>', $startDateTime);
+                    $query->where('schedule_start_time', '<', $endDateTime)
+                          ->where('schedule_end_time', '>', $startDateTime);
                 })
                 ->first();
 
