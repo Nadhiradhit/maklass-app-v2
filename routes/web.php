@@ -10,6 +10,9 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ScheduleDashboardController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 
 
@@ -28,9 +31,8 @@ route::post('/reset-password', [LoginController::class, "updatePassword"])->name
 route::get('/register', [LoginController::class, "register"])->name('register');
 route::post('/register', [LoginController::class, "handleRegister"])->name('register.submit');
 
-
 // User Route
-Route::middleware('user')->prefix('dashboard')->group(function () {
+Route::middleware(['user'])->prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, "index"])->name('landing.user.dashboard');
 
     // Room Routes

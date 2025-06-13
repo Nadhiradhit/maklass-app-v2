@@ -68,7 +68,7 @@ class ScheduleDashboardController extends Controller
             ];
         });
 
-        $combinedData = $transformedSchedules->merge($transformedBookings);
+        $combinedData = collect(array_merge($transformedSchedules->all(), $transformedBookings->all()));
 
         $dayOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 

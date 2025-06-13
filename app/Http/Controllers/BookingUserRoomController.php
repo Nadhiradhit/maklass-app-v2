@@ -33,18 +33,30 @@ class BookingUserRoomController extends Controller
             'booking_start_datetime' => [
                 'required',
                 'date',
-                function ($attribute, $value, $fail) {
-                    $startDateTime = Carbon::parse($value);
-                    if ($startDateTime->isToday() && $startDateTime->lt(Carbon::now())) {
+                function ($attribute,$value, $fail){
+
+                    if(empty($value)){
+                        $fail('Waktu mulai peminjaman tidak boleh kosong.');
+                    }
+
+                    try{
+                        $startDateTime = Carbon::parse($value);
+                    }catch (\Exception $e) {
+                        $fail('Format waktu mulai peminjaman tidak valid.');
+                        return;
+                    }
+
+                    $now = Carbon::now();
+                    if ($startDateTime->lt($now)) {
                         $fail('Waktu peminjaman tidak boleh waktu yang sudah berlalu.');
                     }
                 },
-                'after_or_equal:today',
             ],
             'booking_end_datetime' => 'required|date|after:booking_start_datetime',
             'room_laboratory_id' => 'required|exists:room_laboratory,id',
-            'file_attachment' => 'nullable|file|max:10240|mimes:pdf,doc,docx'
+            'file_attachment' => 'required|file|max:10240|mimes:pdf,doc,docx'
         ]);
+
 
         // Check if the booking start and end times are within the allowed range
         $startDateTime = Carbon::parse($request->booking_start_datetime);
