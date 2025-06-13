@@ -4,7 +4,7 @@
     </div>
 @endif
 
-@if ($errors->any())
+{{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -12,7 +12,7 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif --}}
 
 @section('title', 'Register Maklass')
 
@@ -35,7 +35,15 @@
                 </defs>
             </svg>
             <h2 class="mt-4 sm:mt-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center">Daftar Ke <span class="text-secondary-700 uppercase">Maklass</span></h2>
-
+            {{-- @if($errors->any())
+                <div class="bg-red-500 text-white p-4 rounded-md">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif --}}
             <form class="w-full max-w-sm sm:max-w-md mt-4 sm:mt-6 px-2 sm:px-0" method="POST" action="{{ route('register.submit') }}">
                 @csrf
 
