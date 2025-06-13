@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email', length: 64)->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'user'])->default('user');
+            $table->string('email_verified_at', length: 64)->nullable();
+            $table->string('remember_token', length: 100)->nullable();
             $table->timestamps();
         });
     }
