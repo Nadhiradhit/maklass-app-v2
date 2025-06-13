@@ -89,7 +89,7 @@
                                 </select>
                             </div>
                             <div class="mt-4">
-                                <label for="file_attachment" class="block text-sm font-medium text-gray-700">Lampiran (Opsional):</label>
+                                <label for="file_attachment" class="block text-sm font-medium text-gray-700">Lampiran (Surat Permohonan Peminjaman Ruangan yang sudah ditandatangani oleh pimpinan Polimedia):</label>
                                 <input type="file" name="file_attachment" id="file_attachment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                             </div>
                             <div class="flex justify-end space-x-3 mt-5">
