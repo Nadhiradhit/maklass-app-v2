@@ -53,45 +53,65 @@
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
                                 <div class="md:w-1/2 w-full">
                                     <label for="booking_purpose" class="block text-sm font-medium text-gray-700">Acara atau kegiatan :</label>
-                                    <input type="text" name="booking_purpose" id="booking_purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
+
+                                    <input type="text" name="booking_purpose" id="booking_purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" value="{{ old('booking_purpose') }}" required>
                                 </div>
                                 <div class="md:w-1/2 w-full">
                                     <label for="responsible" class="block text-sm font-medium text-gray-700">Penanggung jawab :</label>
-                                    <input type="text" name="responsible" id="responsible" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+
+                                    <input type="text" name="responsible" id="responsible" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" value="{{ old('responsible') }}">
                                 </div>
                             </div>
                             <div class="mt-4">
                                 <label for="purpose" class="block text-sm font-medium text-gray-700">Keperluan :</label>
-                                <textarea name="purpose" id="purpose" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2"></textarea>
+
+                                <textarea name="purpose" id="purpose" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">{{ old('purpose') }}</textarea>
                             </div>
 
                             <div class="flex flex-col md:flex-row gap-4 mt-4">
                                 <div class="md:w-1/2 w-full">
                                     <label for="booking_start_datetime" class="block text-sm font-medium text-gray-700">Mulai Peminjaman :</label>
+
                                     <input type="datetime-local" name="booking_start_datetime" id="booking_start_datetime"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
-                                    <span id="start-datetime-error" class="text-red-500 text-xs"></span>
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" value="{{ old('booking_start_datetime') }}" required>
+                                    <span id="start-datetime-error" class="text-red-500 text-xs">
+                                        @error('booking_start_datetime')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </div>
                                 <div class="md:w-1/2 w-full">
                                     <label for="booking_end_datetime" class="block text-sm font-medium text-gray-700">Selesai Peminjaman :</label>
+
                                     <input type="datetime-local" name="booking_end_datetime" id="booking_end_datetime"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
-                                    <span id="end-datetime-error" class="text-red-500 text-xs"></span>
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" value="{{ old('booking_end_datetime') }}" required>
+                                    <span id="end-datetime-error" class="text-red-500 text-xs">
+                                        @error('booking_end_datetime')
+                                            {{ $message }}
+                                        @enderror
+                                    </span>
                                 </div>
                             </div>
-
                             <div class="mt-4">
                                 <label for="room_laboratory_id" class="block text-sm font-medium text-gray-700">Ruangan yang akan dipinjam :</label>
                                 <select name="room_laboratory_id" id="room_laboratory_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
                                     <option value="">Pilih Ruangan</option>
                                     @foreach($laboratories as $lab)
-                                        <option value="{{ $lab->id }}">{{ $lab->name }} {{ $lab->room }}</option>
+
+                                        <option value="{{ $lab->id }}" {{ old('room_laboratory_id') == $lab->id ? 'selected' : '' }}>{{ $lab->name }} {{ $lab->room }}</option>
                                     @endforeach
                                 </select>
+                                @error('room_laboratory_id')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="mt-4">
                                 <label for="file_attachment" class="block text-sm font-medium text-gray-700">Lampiran (Surat Permohonan Peminjaman Ruangan yang sudah ditandatangani oleh pimpinan Polimedia):</label>
+
                                 <input type="file" name="file_attachment" id="file_attachment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
+                                @error('file_attachment')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="flex justify-end space-x-3 mt-5">
                                 <a href="{{ route('landing.user.room.room-booking') }}"

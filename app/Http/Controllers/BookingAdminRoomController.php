@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Room;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BookingAdminRoomController extends Controller
 {
@@ -33,6 +34,9 @@ class BookingAdminRoomController extends Controller
             $startDateTime = $booking->booking_start_datetime;
             $endDateTime = $booking->booking_end_datetime;
 
+            Carbon::setLocale('id');
+            $dayOfWeekForBooking = Carbon::parse($startDateTime)->translatedFormat('l');
+
             // Check if this approved booking overlaps with any existing bookings or schedules
             $existingApprovedBooking = Booking::where('id', '!=', $booking->id)
                 ->where('room_laboratory_id', $roomLaboratoryId)
@@ -51,9 +55,10 @@ class BookingAdminRoomController extends Controller
 
             // Check for overlapping schedules
             $existingSchedule = Schedule::where('room_laboratory_id', $roomLaboratoryId)
+                ->where('schedule_day_of_week', $dayOfWeekForBooking)
                 ->where(function ($query) use ($startDateTime, $endDateTime) {
-                    $query->where('schedule_start_time', '<', $endDateTime)
-                          ->where('schedule_end_time', '>', $startDateTime);
+                    $query->where('schedule_start_time', '<', Carbon::parse($endDateTime)->format('H:i:s'))
+                          ->where('schedule_end_time', '>', Carbon::parse($startDateTime)->format('H:i:s'));
                 })
                 ->first();
 
