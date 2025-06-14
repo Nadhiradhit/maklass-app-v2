@@ -16,8 +16,15 @@ class BookingUserRoomController extends Controller
     {
         $userId = Auth::id();
 
+        $now = Carbon::now();
+
+        Booking::where('status', 'pending')
+            ->where('booking_start_datetime', '<', $now)
+            ->update(['status' => 'rejected']);
+
         $data = Booking::where('user_id', $userId)
                        ->with(['user', 'room'])
+                       ->orderBy('booking_start_datetime')
                        ->get();
         $laboratories = Room::all();
 

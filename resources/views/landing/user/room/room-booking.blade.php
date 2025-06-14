@@ -6,6 +6,7 @@
     $currentPath = request()->path();
     $today = \Carbon\Carbon::now()->toDateString();
     $week = \Carbon\Carbon::now()->addDays(7)->toDateString();
+    $groupedData = $data->groupBy('status');
 @endphp
 
 @section('content')
@@ -14,8 +15,8 @@
 
         <div class="flex justify-between mt-8 mb-4">
             <div class="flex gap-4 font-semibold text-lg items-center">
-                <a href="{{ route('landing.user.room.room-booking') }}" class="{{ str_contains($currentPath, 'booking') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a>
-                <a href="{{ route('landing.admin.schedule.dashboard') }}" class="{{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">List Permintaan</a>
+                <a href="{{ route('landing.user.room.room-booking') }}" class="{{ str_contains($currentPath, 'booking') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">List Permintaan</a>
+                <a href="#" class="{{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan</a>
             </div>
 
             <a href="{{ route('landing.user.room.room-booking', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
@@ -23,7 +24,7 @@
             </a>
         </div>
 
-        <h2 class="text-2xl font-semibold">Peminjaman Ruangan</h2>
+        <h2 class="text-2xl font-semibold mb-4">Peminjaman Ruangan</h2>
 
         @if(request('show_modal'))
             <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
@@ -108,76 +109,64 @@
             </div>
         @endif
 
-
-
-
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
-            <table class="w-full text-sm text-left rtl:text-right text-secondary-800">
-                <thead class="text-xs text-white uppercase bg-secondary-800 h-20">
-                    <tr class="text-center">
-                        <th scope="col" class="px-6 py-3 w-20">No</th>
-                        <th scope="col" class="px-6 py-3">Kegiatan</th>
-                        <th scope="col" class="px-6 py-3">Penanggung Jawab</th>
-                        <th scope="col" class="px-6 py-3">Keperluan</th>
-                        <th scope="col" class="px-6 py-3">Ruangan</th>
-                        <th scope="col" class="px-6 py-3">Tanggal Peminjaman</th>
-                        <th scope="col" class="px-6 py-3">Waktu Peminjaman</th>
-                        <th scope="col" class="px-6 py-3">Status</th>
-                        <th scope="col" class="px-6 py-3">Lampiran</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    @foreach($data as $index => $data)
-                        <tr class="bg-white border-b hover:bg-secondary-50">
-                            <td class="px-6 py-4 text-center">{{ $index + 1 }}</td>
-                            <td class="px-6 py-4">
-                                {{ $data->booking_purpose }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $data->responsible }}
-                            </td>
-                            <td>
-                                {{ $data->purpose}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $data->room->name }} {{ $data->room->room }}
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                {{ $data->booking_start_datetime ? \Carbon\Carbon::parse($data->booking_start_datetime)->format('d F Y') : '-' }}
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                {{ $data->booking_start_datetime ? \Carbon\Carbon::parse($data->booking_start_datetime)->format('H:i') : '-' }} -
-                                {{ $data->booking_end_datetime ? \Carbon\Carbon::parse($data->booking_end_datetime)->format('H:i') : '-' }}
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                @if($data->status == 'pending')
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                        Menunggu Persetujuan
-                                    </span>
-                                @elseif($data->status == 'approved')
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                        Disetujui
-                                    </span>
-                                @else
-                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                        Ditolak
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                @if($data->file_attachment)
-                                    <a href="{{ asset('storage/attachments/' . $data->file_attachment) }}" target="_blank" class="text-blue-600 hover:text-blue-800">
-                                        Lihat Lampiran
-                                    </a>
-                                @else
-                                    <span class="text-gray-400">-</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="w-full m5-4">
+            @foreach ($groupedData as $status => $items)
+                <div class="mb-8">
+                    @php
+                        $statusTitle = '';
+                        $statusClass = '';
+                        switch ($status) {
+                            case 'pending':
+                                $statusTitle = 'Menunggu Persetujuan';
+                                $statusClass = 'bg-yellow-200';
+                                break;
+                            case 'approved':
+                                $statusTitle = 'Disetujui';
+                                $statusClass = 'bg-green-200';
+                                break;
+                            case 'rejected':
+                                $statusTitle = 'Ditolak';
+                                $statusClass = 'bg-red-200';
+                                break;
+                            default:
+                                $statusTitle = ucfirst($status);
+                                $statusClass = 'bg-gray-200';
+                        }
+                    @endphp
+                    <h3 class="text-xl font-semibold mb-4 capitalize">{{ $statusTitle }}</h3>
+                    @forelse ($items as $item)
+                        <div class="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-200">
+                            <div class="bg-secondary-50 p-4 flex items-center justify-between">
+                                <div>
+                                    <h2 class="font-semibold text-lg text-secondary-900">{{$item->booking_purpose}}</h2>
+                                    <p>Penanggung Jawab: {{$item->responsible}}</p>
+                                    <p>Keperluan: {{$item->purpose}}</p>
+                                    @php
+                                        \Carbon\Carbon::setLocale('id');
+                                        setlocale(LC_TIME, 'id_ID.UTF-8', 'id_ID', 'indonesian');
+                                        $startDate = $item->booking_start_datetime
+                                            ? \Carbon\Carbon::parse($item->booking_start_datetime)->locale('id')
+                                            : null;
+                                        $endDate = $item->booking_end_datetime
+                                            ? \Carbon\Carbon::parse($item->booking_end_datetime)->locale('id')
+                                            : null;
+                                    @endphp
+                                    <p>Tanggal Peminjaman: {{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</p>
+                                    <p>Waktu Peminjaman: {{ $item->booking_start_datetime ? \Carbon\Carbon::parse($item->booking_start_datetime)->format('H:i') . ' - ' . \Carbon\Carbon::parse($item->booking_end_datetime)->format('H:i') : '-'}}</p>
+                                </div>
+                                <div class="{{ $statusClass }} px-3 py-2 rounded-md">
+                                    <p>{{ $statusTitle }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-gray-600">Tidak ada peminjaman dengan status "{{ $statusTitle }}".</p>
+                    @endforelse
+                </div>
+            @endforeach
         </div>
+
+
 
     </div>
 @endsection
