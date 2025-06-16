@@ -28,11 +28,15 @@ class LoginController extends Controller
             'password.required' => 'Password Anda Tidak Boleh Kosong',
         ]);
 
+        $remember = $request->has('remember');
+
         // Find The User Login By Email Polimedia
         $userModel = new User();
         $user = $userModel->findForLogin($request->identifier);
 
-        if($user && Auth::attempt(['email' => $user->email, 'password' => $request->password])){
+        if($user && Auth::attempt(['email' => $user->email, 'password' => $request->password], $remember)){
+
+            $request->session()->regenerate();
             // Authenticated Pass
             if($user->isAdmin()){
                 return redirect()->route('landing.admin.dashboard');
