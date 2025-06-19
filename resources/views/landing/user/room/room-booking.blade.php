@@ -11,12 +11,12 @@
 
 @section('content')
     <div class="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 mx-auto">
-        <h1 class="text-2xl font-semibold text-secondary-900">Reservasi Ruangan Laboratorium</h1>
+        <h1 class="text-xl md:text-2xl font-semibold text-secondary-900">Reservasi Ruangan Laboratorium</h1>
 
-        <div class="flex justify-between mt-8 mb-4">
+        <div class="flex flex-col md:flex-row md:justify-between mt-8 mb-4 gap-4">
             <div class="flex gap-4 font-semibold text-lg items-center">
                 <a href="{{ route('landing.user.room.room-booking') }}" class="{{ str_contains($currentPath, 'booking') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">List Permintaan</a>
-                <a href="#" class="{{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan</a>
+                <a href="#" class="{{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a>
             </div>
 
             <a href="{{ route('landing.user.room.room-booking', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
@@ -138,15 +138,15 @@
                         switch ($status) {
                             case 'pending':
                                 $statusTitle = 'Menunggu Persetujuan';
-                                $statusClass = 'bg-yellow-200';
+                                $statusClass = 'bg-yellow-200 text-yellow-800';
                                 break;
                             case 'approved':
                                 $statusTitle = 'Disetujui';
-                                $statusClass = 'bg-green-200';
+                                $statusClass = 'bg-green-200 text-green-800';
                                 break;
                             case 'rejected':
                                 $statusTitle = 'Ditolak';
-                                $statusClass = 'bg-red-200';
+                                $statusClass = 'bg-red-200 text-red-800';
                                 break;
                             default:
                                 $statusTitle = ucfirst($status);
@@ -156,7 +156,7 @@
                     <h3 class="text-xl font-semibold mb-4 capitalize">{{ $statusTitle }}</h3>
                     @forelse ($items as $item)
                         <div class="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-200">
-                            <div class="bg-secondary-50 p-4 flex items-center justify-between">
+                            <div class="bg-secondary-50 md:p-4 flex flex-col items-start md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h2 class="font-semibold text-lg text-secondary-900">{{$item->booking_purpose}}</h2>
                                     <p>Penanggung Jawab: {{$item->responsible}}</p>
@@ -174,7 +174,7 @@
                                     <p>Tanggal Peminjaman: {{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</p>
                                     <p>Waktu Peminjaman: {{ $item->booking_start_datetime ? \Carbon\Carbon::parse($item->booking_start_datetime)->format('H:i') . ' - ' . \Carbon\Carbon::parse($item->booking_end_datetime)->format('H:i') : '-'}}</p>
                                 </div>
-                                <div class="{{ $statusClass }} px-3 py-2 rounded-md">
+                                <div class="{{ $statusClass }} px-3 py-2 rounded-md text-center">
                                     <p>{{ $statusTitle }}</p>
                                 </div>
                             </div>

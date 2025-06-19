@@ -181,7 +181,7 @@
                 <tbody>
                     @forelse ($schedules as $schedule)
                         <tr class="border-gray-200 odd:bg-white even:bg-gray-100 text-center">
-                            <td scope="row" class="px-6 py-4 whitespace-nowrap"">
+                            <td scope="row" class="px-6 py-4 whitespace-nowrap">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="px-6 py-4">
