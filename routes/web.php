@@ -56,6 +56,8 @@ Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
     // Schedule Routes
     Route::get('/schedule', [ScheduleController::class, "index"])->name('landing.admin.schedule.dashboard');
     Route::post('/schedule', [ScheduleController::class, "store"])->name('landing.admin.schedule.create');
+    Route::delete('/schedule/{id}', [ScheduleController::class, "delete"])->name('landing.admin.schedule.delete');
+    Route::put('/schedule/{id}', [ScheduleController::class, "update"])->name('landing.admin.schedule.update');
 
     // Booking Routes
     Route::get('/booking', [BookingAdminRoomController::class, "index"])->name('landing.admin.booking.dashboard');

@@ -106,4 +106,36 @@ class ScheduleController extends Controller
 
         return redirect()->back()->with('success', 'Schedule created successfully.');
     }
+
+    public function delete($id){
+        $schedule = Schedule::find($id);
+        $schedule->delete();
+        return redirect()->route('landing.admin.schedule.dashboard')->with('success', 'Schedule deleted successfully.');
+    }
+
+    public function update(Request $request, $id){
+        $validated = $request->validate([
+            'room_laboratory_id' => 'required|exists:room_laboratory,id',
+            'semester_id' => 'required|exists:semesters,id',
+            'title_schedule' => 'required|string|max:255',
+            'lecturer_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'schedule_day_of_week' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat',
+            'schedule_start_time' => 'required|date_format:H:i',
+            'schedule_end_time' => 'required|date_format:H:i|after_or_equal:schedule_start_time',
+        ]);
+
+        $schedule = Schedule::findOrFaild($id);
+        $schedule->room_laboratory_id = $validated['room_laboratory_id'];
+        $schedule->semester_id = $validated['semester_id'];
+        $schedule->title_schedule = $validated['title_schedule'];
+        $schedule->lecturer_name = $validated['lecturer_name'];
+        $schedule->description = $validated['description'];
+        $schedule->schedule_day_of_week = $validated['schedule_day_of_week'];
+        $schedule->schedule_start_time = $validated['schedule_start_time'];
+        $schedule->schedule_end_time = $validated['schedule_end_time'];
+        $schedule->save();
+        return redirect()->route('landing.admin.schedule.dashboard')->with('success', 'Schedule updated successfully.');
+
+    }
 }
