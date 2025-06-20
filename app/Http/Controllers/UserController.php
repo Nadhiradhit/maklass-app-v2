@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index(){
 
         $roomData = Room::all();
-        $bookingData = Booking::with(['user', 'room'])->where('user_id', Auth::id())->get();
+        $bookingData = Booking::with(['user', 'room'])->where('user_id', Auth::id())->limit(5)->get();
         $schedule = Schedule::with(['room', 'semester'])->limit(3)->get();
         return view('landing.user.dashboard' , compact('roomData', 'bookingData', 'schedule'));
     }

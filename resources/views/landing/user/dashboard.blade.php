@@ -49,19 +49,31 @@
                 </div>
                 @foreach ($schedule as $item)
                     <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg mb-4 mx-4">
-                        <div>
-                            <h4>{{ $item->room->name }}</h4>
-                            <h5>{{ $item->room->description }}</h5>
-                        </div>
-                        <div>
-                            <p>Hari tanggal</p>
-                            <p>{{ $item->schedule_day_of_week }}</p>
-                            <p>{{ $item->schedule_start_time }}</p>
-                            <p>{{ $item->schedule_end_time }}</p>
+                        <div class="flex items-center justify-between p-3 xs:p-4 sm:p-5 md:p-6">
+                            <div class="w-1/4">
+                                <h4 class="text-lg font-semibold">{{ $item->room->name }}</h4>
+                                <h5 class="text-sm">{{ $item->room->description }}</h5>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Hari tanggal</h4>
+                                <p class="text-sm">{{ $item->schedule_day_of_week }}, {{ $item->schedule_start_time }} - {{ $item->schedule_end_time }}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Status</h4>
+                                @if($item->status == 'pending')
+                                <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-yellow-100 text-yellow-800">Menunggu</span>
+                                @elseif($item->status == 'approved')
+                                <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-green-100 text-green-800">Disetujui</span>
+                                @elseif($item->status == 'rejected')
+                                <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-red-100 text-red-800">Ditolak</span>
+                                @else
+                                -
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endforeach
-                <button>
+                <button class="flex justify-end p-3 xs:p-4 sm:p-5 md:p-6">
                     <a href="{{ route('landing.user.schedule.dashboard')}}" class="text-sm xs:text-base sm:text-lg md:text-xl text-secondary-700 font-semibold mt-1">Lihat semua</a>
                 </button>
             </div>
