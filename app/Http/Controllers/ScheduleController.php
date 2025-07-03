@@ -102,7 +102,6 @@ class ScheduleController extends Controller
         $validated['status'] = 'active';
 
         $schedule = Schedule::create($validated);
-        // dd($schedule);
 
         return redirect()->back()->with('success', 'Schedule created successfully.');
     }

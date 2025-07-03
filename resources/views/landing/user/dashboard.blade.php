@@ -42,10 +42,10 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-8 mt-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-10 mt-8">
             <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg">
                 <div class="p-3 xs:p-4 sm:p-5 md:p-6">
-                    <h3 class="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-secondary-900">Monitor Peminjaman Ruangan Lab</h3>
+                    <h3 class="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-secondary-900">Jadwal Kegiatan</h3>
                 </div>
                 @foreach ($schedule as $item)
                     <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg mb-4 mx-4">
@@ -57,18 +57,6 @@
                             <div>
                                 <h4 class="text-lg font-semibold">Hari tanggal</h4>
                                 <p class="text-sm">{{ $item->schedule_day_of_week }}, {{ $item->schedule_start_time }} - {{ $item->schedule_end_time }}</p>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold">Status</h4>
-                                @if($item->status == 'pending')
-                                <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-yellow-100 text-yellow-800">Menunggu</span>
-                                @elseif($item->status == 'approved')
-                                <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-green-100 text-green-800">Disetujui</span>
-                                @elseif($item->status == 'rejected')
-                                <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-red-100 text-red-800">Ditolak</span>
-                                @else
-                                -
-                                @endif
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,8 @@ class LoginController extends Controller
         if($user && Auth::attempt(['email' => $user->email, 'password' => $request->password], $remember)){
 
             $request->session()->regenerate();
-            // Authenticated Pass
+
+            // Check User Role And Redirect
             if($user->isAdmin()){
                 return redirect()->route('landing.admin.dashboard');
             }else{
@@ -122,6 +123,11 @@ class LoginController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'user',
         ]);
+
+        // email verification logic can be added here if needed
+        // For example, you can send a verification email to the user
+        $user->sendEmailVerificationNotification();
+
 
         Auth::login($user);
 

@@ -78,7 +78,7 @@ class BookingAdminRoomController extends Controller
                 ->where('status', 'pending')
                 ->where(function ($query) use ($booking) {
                     $query->where('booking_start_datetime', '<', $booking->booking_end_datetime)
-                          ->where('booking_end_datetime', '>', $booking->booking_start_datetime);
+                        ->where('booking_end_datetime', '>', $booking->booking_start_datetime);
                 })
                 ->update(['status' => 'rejected']);
 

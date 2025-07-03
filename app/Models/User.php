@@ -21,7 +21,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'nim',
         'password',
         'role',
-        'email_verified_at',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 
     // Check If User Is Admin

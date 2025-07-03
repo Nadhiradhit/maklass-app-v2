@@ -31,8 +31,25 @@ route::post('/reset-password', [LoginController::class, "updatePassword"])->name
 route::get('/register', [LoginController::class, "register"])->name('register');
 route::post('/register', [LoginController::class, "handleRegister"])->name('register.submit');
 
+// Email Verification Route
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 // User Route
-Route::middleware(['user'])->prefix('dashboard')->group(function () {
+Route::middleware(['user', 'verified', 'auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [UserController::class, "index"])->name('landing.user.dashboard');
 
     // Room Routes
