@@ -14,7 +14,7 @@ class BookingAdminRoomController extends Controller
 
     public function index()
     {
-        $data = Booking::with(['user', 'room'])->get();
+        $data = Booking::with(['user', 'room'])->paginate(10);
         return view('landing.admin.request.room.request-room', compact('data'));
     }
 

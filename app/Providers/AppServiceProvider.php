@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
     //         ->line('Click the button below to verify your email address.')
     //         ->action('Verify Email Address', $url);
     //     });
-    // }
+    }
 
 }
