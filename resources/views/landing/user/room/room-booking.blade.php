@@ -16,15 +16,15 @@
         <div class="flex flex-col md:flex-row md:justify-between mt-8 mb-4 gap-4">
             <div class="flex gap-4 font-semibold text-lg items-center">
                 <a href="{{ route('landing.user.room.room-booking') }}" class="{{ str_contains($currentPath, 'booking') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">List Permintaan</a>
-                <a href="#" class="{{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a>
+                {{-- <a href="#" class="{{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a> --}}
             </div>
 
             <a href="{{ route('landing.user.room.room-booking', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
-                Peminjaman Lab
+                Tambah Reservasi Ruangan
             </a>
         </div>
 
-        <h2 class="text-2xl font-semibold mb-4">Peminjaman Ruangan</h2>
+        <h2 class="text-2xl font-semibold mb-4">Data Peminjaman Ruangan</h2>
 
         @if(request('show_modal'))
             <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
