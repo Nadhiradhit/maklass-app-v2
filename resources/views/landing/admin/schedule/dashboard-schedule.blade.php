@@ -15,14 +15,14 @@
             <a href="{{ route('landing.admin.schedule.dashboard') }}" class="text-2xl {{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Jadwal Lab</a>
         </div>
 
-        <div class="flex justify-end my-4">
-            <a href="{{ route('landing.admin.schedule.dashboard', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
-                Tambah Jadwal
+        <div class="flex justify-end my-4 w-full">
+            <a href="{{ route('landing.admin.schedule.dashboard', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700 w-full">
+                + Tambah Jadwal
             </a>
         </div>
 
         @if (request('show_modal'))
-            <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
+            <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-auto w-full z-50 flex items-center justify-center">
                 <div class="relative p-5 border w-full md:w-1/2 shadow-lg rounded-md bg-white">
                     <div>
                         @if(session('success'))
@@ -57,7 +57,7 @@
                             </div>
                             <div class="md:w-1/2 w-full">
                                 <label for="lecturer_name" class="block text-sm font-medium text-gray-700">Dosen :</label>
-                                <input type="text" name="lecturer_name" id="lecturer_name" {{-- Corrected name from 'lecturer' to 'lecturer_name' --}}
+                                <input type="text" name="lecturer_name" id="lecturer_name"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2 @error('lecturer_name') border-red-500 @enderror"
                                     value="{{ old('lecturer_name') }}">
                                 @error('lecturer_name')

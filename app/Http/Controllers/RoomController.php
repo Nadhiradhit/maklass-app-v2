@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Booking;
 
 class RoomController extends Controller
 {
@@ -36,21 +37,24 @@ class RoomController extends Controller
             ->with('success', 'Ruangan berhasil dihapus');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Room $room)
     {
-        $validated = $request->validate([
+        $hasActiveBooking = Booking::where('room_laboratory_id', $room->id)
+                                    ->where('end_time', '>', now()) // Assuming end_time is a datetime column
+                                    ->exists();
+
+        if ($hasActiveBooking) {
+            return redirect()->back()->with('error', 'This room cannot be updated because it currently has active bookings.');
+        }
+
+        $request->validate([
             'name' => 'required',
             'location' => 'required',
             'capacity' => 'required|integer',
             'description' => 'required',
         ]);
 
-        $room = Room::findOrFail($id);
-        $room->name = $validated['name'];
-        $room->location = $validated['location'];
-        $room->capacity = $validated['capacity'];
-        $room->description = $validated['description'];
-        $room->save();
+        $room->update($request->all());
 
         return redirect()->route('landing.admin.room.dashboard')->with('success', 'Ruangan berhasil diupdate');
     }
