@@ -22,7 +22,7 @@
 
                     <div class="relative h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 mt-2 sm:mt-4">
                         <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#1D4766] absolute right-0 bottom-0">
-                            {{ $roomData->count() }}
+                            {{ $emptyRoomsCount }}
                         </h1>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
                     <div class="relative h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 mt-2 sm:mt-4">
                         <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white absolute right-0 bottom-0">
-                            {{ $roomData->count() }}
+                            {{ $occupiedRoomsCount }}
                         </h1>
                     </div>
                 </div>
@@ -43,14 +43,19 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-10 mt-8">
+
             <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg">
-                <div class="p-3 xs:p-4 sm:p-5 md:p-6">
+                <div class=" xs:p-4 sm:p-5 md:p-6">
                     <h3 class="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-secondary-900">Jadwal Kegiatan</h3>
                 </div>
-                @foreach ($schedule as $item)
+                @forelse ($schedule as $item)s
+                    @php
+                        $date_now = \Carbon\Carbon::now();
+                        $onlyTo
+                    @endphp
                     <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg mb-4 mx-4">
-                        <div class="flex items-center justify-between p-3 xs:p-4 sm:p-5 md:p-6">
-                            <div class="w-1/4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between p-3 xs:p-4 sm:p-5 md:p-6">
+                            <div class="md:w-1/4 w-full">
                                 <h4 class="text-lg font-semibold">{{ $item->room->name }}</h4>
                                 <h5 class="text-sm">{{ $item->room->description }}</h5>
                             </div>
@@ -60,10 +65,15 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-                <button class="flex justify-end p-3 xs:p-4 sm:p-5 md:p-6">
-                    <a href="{{ route('landing.user.schedule.dashboard')}}" class="text-sm xs:text-base sm:text-lg md:text-xl text-secondary-700 font-semibold mt-1">Lihat semua</a>
-                </button>
+                    <button class="flex justify-end p-3 xs:p-4 sm:p-5 md:p-6">
+                        <a href="{{ route('landing.user.schedule.dashboard')}}" class="text-sm xs:text-base sm:text-lg md:text-xl text-secondary-700 font-semibold mt-1">Lihat semua</a>
+                    </button>
+                @empty
+                    <div class="p-3 xs:p-4 sm:p-5 md:p-6">
+                        <p class="text-sm text-secondary-600">Tidak ada jadwal kegiatan saat ini.</p>
+                    </div>
+                @endforelse
+
             </div>
 
             <div class="bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg">
@@ -71,7 +81,7 @@
                     <h3 class="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-secondary-900">Permintaan Peminjaman</h3>
                 </div>
                 <div>
-                    @foreach ($bookingData as $item)
+                    @forelse ($bookingDataNotification as $item)
                     @php
                         \Carbon\Carbon::setLocale('id');
                         setlocale(LC_TIME, 'id_ID.UTF-8', 'id_ID', 'indonesian');
@@ -82,22 +92,24 @@
                             ? \Carbon\Carbon::parse($item->booking_end_datetime)->locale('id')
                             : null;
                     @endphp
-                    <div class="p-3 xs:p-4 sm:p-5 md:p-6 flex justify-between">
-                        <p class="text-sm md:text-lg font-bold text-secondary-900">{{ $item->purpose }}</p>
-                        <p class="text-sm md:text-lg text-secondary-700 font-semibold mt-1">{{ $item->room->name }}</p>
-                        <p class="text-sm md:text-lg text-secondary-700 font-semibold mt-1">{{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</p>
-                        <p class="text-sm md:text-lg text-secondary-700 font-semibold mt-1">@if($item->status == 'pending')
+                    <div class="p-3 xs:p-4 sm:p-5 md:p-6 flex flex-row items-center justify-between bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg mb-4 mx-4">
+                        <div class="flex flex-col md:w-3/4 w-full">
+                            <p class="text-sm md:text-lg font-bold text-secondary-900">{{ $item->purpose }}</p>
+                            <p class="text-sm md:text-lg text-secondary-700 font-semibold mt-1">{{ $item->room->name }}</p>
+                            <p class="text-sm md:text-lg text-secondary-700 font-semibold mt-1">{{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</p>
+                        </div>
+                        <p class="text-sm md:text-lg text-secondary-700 font-semibold mt-1">
                             <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-yellow-100 text-yellow-800">Menunggu</span>
-                            @elseif($item->status == 'approved')
-                            <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-green-100 text-green-800">Disetujui</span>
-                            @elseif($item->status == 'rejected')
-                            <span class="px-2 py-1 text-sm md:text-lg font-semibold rounded-full bg-red-100 text-red-800">Ditolak</span>
-                            @else
-                            -
-                            @endif
                         </p>
                     </div>
-                    @endforeach
+                    <button class="flex justify-end p-3 xs:p-4 sm:p-5 md:p-6">
+                        <a href="{{ route('landing.user.room.room-booking')}}" class="text-sm xs:text-base sm:text-lg md:text-xl text-secondary-700 font-semibold mt-1">Lihat semua</a>
+                    </button>
+                    @empty
+                        <div class="p-3 xs:p-4 sm:p-5 md:p-6">
+                            <p class="text-sm text-secondary-600">Tidak ada permintaan peminjaman saat ini.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
 
