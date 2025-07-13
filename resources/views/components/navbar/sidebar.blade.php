@@ -5,7 +5,7 @@
          'w-0 overflow-hidden': isMobile && !sidebarOpen,
          'fixed inset-y-0 left-0 z-50': isMobile
      }"
-     class="bg-[#2C6A89] h-screen transition-all duration-300 rounded-lg-tr rounded-lg-br">
+     class="bg-[#2C6A89] h-full transition-all duration-300 rounded-lg-tr rounded-lg-br">
 
     <!-- Tombol close untuk mobile -->
     <button x-show="isMobile && sidebarOpen"
@@ -33,7 +33,7 @@
             </svg>
         </div>
 
-        <div class="pt-16 flex-grow">
+        <div class="pt-16 flex-grow overflow-y-auto">
             @if(auth()->check())
                 @if(auth()->user()->role === 'admin')
                 <ul class="space-y-4 text-lg font-semibold text-white">
@@ -188,20 +188,22 @@
                 </ul>
                 @endif
             @endif
+
         </div>
 
-
-        <form method="POST" action="{{ route('logout') }}" class="w-full">
-            @csrf
-            <button type="submit" class="flex items-center gap-2 w-full text-left px-2 py-2 hover:bg-[#1d5a78] rounded-md transition-colors duration-200 text-white font-semibold">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                <span>Logout</span>
-            </button>
-        </form>
+        <div>
+            <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-2 w-full text-left px-2 py-2 hover:bg-[#1d5a78] rounded-md transition-colors duration-200 text-white font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Logout</span>
+                    </button>
+            </form>
+        </div>
 
     </div>
 

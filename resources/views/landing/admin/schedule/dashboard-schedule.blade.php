@@ -16,8 +16,8 @@
         </div>
 
         <div class="flex justify-end my-4 w-full">
-            <a href="{{ route('landing.admin.schedule.dashboard', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700 w-full">
-                + Tambah Jadwal
+            <a href="{{ route('landing.admin.schedule.dashboard', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700 w-full md:w-auto">
+                Tambah Jadwal Pembelajaran
             </a>
         </div>
 
