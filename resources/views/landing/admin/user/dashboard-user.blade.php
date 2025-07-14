@@ -4,11 +4,12 @@
 
 @section('content')
     <div class="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 mx-auto">
-        <h1 class="text-2xl font-semibold">User</h1>
 
-        <div class="flex justify-end my-4">
-            <a href="{{ route('landing.admin.user.dashboard', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
-                Tambah User
+        <div class="flex flex-col md:flex-row md:justify-between my-4">
+            <h1 class="text-xl md:text-2xl font-semibold text-secondary-900 my-5 md:my-0">Dashboard User Maklas</h1>
+            <a href="{{ route('landing.admin.user.dashboard', ['show_modal' => true]) }}" class="flex items-center gap-2 bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                <span>Tambah User</span>
             </a>
         </div>
 
@@ -72,7 +73,7 @@
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
             <table class="w-full text-sm text-left rtl:text-right text-secondary-800">
-                <thead class="text-xs text-white uppercase bg-secondary-800">
+                <thead class="text-xs text-white uppercase bg-secondary-800 h-20">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             No
@@ -91,10 +92,10 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="font-semibold">
+                <tbody>
                     @foreach ($data as $item)
-                        <tr class="border-gray-200">
-                            <th scope="row" class="px-6 py-4 whitespace-nowrap">
+                        <tr class="border-gray-200 odd:bg-white even:bg-gray-100">
+                            <th scope="row" class="px-6 py-4 whitespace-nowrap font-semibold">
                                 {{ $loop->iteration }}
                             </th>
                             <td class="px-6 py-4">
@@ -107,10 +108,10 @@
                                 {{ $item->role }}
                             </td>
                             <td class="px-6 py-4 space-x-2">
-                                <a href="{{ route('landing.admin.user.dashboard', ['edit_id' => $item->id]) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a href="{{ route('landing.admin.user.dashboard', ['edit_id' => $item->id]) }}" class="text-blue-600 dark:text-blue-500 hover:underline font-semibold">Edit</a>
                                 @if(request('edit_id') == $item->id)
                                 <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
-                                    <div class="relative p-5 border w-1/2 shadow-lg rounded-md bg-white">
+                                    <div class="relative p-5 border w-full md:w-1/2 shadow-lg rounded-md bg-white">
                                         <div class="mt-3">
                                             <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Edit User</h3>
                                             <form action="{{ route('landing.admin.user.update', $item->id) }}" method="POST" class="space-y-4">
@@ -149,7 +150,7 @@
                                     </div>
                                 </div>
                                 @endif
-                                <a href="{{ route('landing.admin.user.dashboard', ['delete_id' => $item->id]) }}" class="text-red-600 dark:text-red-500 hover:underline">Hapus</a>
+                                <a href="{{ route('landing.admin.user.dashboard', ['delete_id' => $item->id]) }}" class="text-red-600 dark:text-red-500 hover:underline font-semibold">Hapus</a>
                                 @if(request('delete_id') == $item->id)
                                 <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
                                     <div class="relative p-5 border w-96 shadow-lg rounded-md bg-white">
