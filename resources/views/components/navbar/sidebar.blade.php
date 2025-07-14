@@ -90,6 +90,11 @@
                                     </x-navbar.nav-link>
                                 </li>
                                 <li class="pl-8 py-1 hover:bg-[#246b8f] rounded-md transition-colors duration-200">
+                                    <x-navbar.nav-link :active="request()->routeIs('landing.admin.schedule.dashboard')" href="{{ route('landing.admin.schedule.dashboard') }}">
+                                        Monitoring Jadwal Ruangan Lab
+                                    </x-navbar.nav-link>
+                                </li>
+                                <li class="pl-8 py-1 hover:bg-[#246b8f] rounded-md transition-colors duration-200">
                                     <x-navbar.nav-link :active="request()->routeIs('landing.admin.booking.dashboard')" href="{{ route('landing.admin.booking.dashboard')}}">
                                         Permintaan Ruangan Lab
                                     </x-navbar.nav-link>

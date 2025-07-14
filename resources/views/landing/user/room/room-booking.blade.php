@@ -26,7 +26,7 @@
 
         @if(request('show_modal'))
             <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
-                <div class="relative p-5 border w-full md:w-1/2 shadow-lg rounded-md bg-white">
+                <div class="relative p-5 border w-full md:w-1/2 max-h-[90vh] overflow-y-auto shadow-lg rounded-md bg-white">
                     <div>
                         @if(session('success'))
                             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -171,6 +171,9 @@
                                     @endphp
                                     <p>Tanggal Peminjaman: {{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</p>
                                     <p>Waktu Peminjaman: {{ $item->booking_start_datetime ? \Carbon\Carbon::parse($item->booking_start_datetime)->format('H:i') . ' - ' . \Carbon\Carbon::parse($item->booking_end_datetime)->format('H:i') : '-'}}</p>
+                                    @if($item->status == 'rejected')
+                                        <p class="text-red-600">Alasan Penolakan: {{ $item->reason }}</p>
+                                    @endif
                                 </div>
                                 <div class="{{ $statusClass }} px-3 py-2 rounded-md text-center">
                                     <p>{{ $statusTitle }}</p>

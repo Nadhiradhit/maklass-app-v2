@@ -54,7 +54,7 @@ class BookingUserRoomController extends Controller
                     }
 
                     $now = Carbon::now();
-                    if ($startDateTime->lt($now)) {
+                    if ($startDateTime->lte($now)) {
                         $fail('Waktu peminjaman tidak boleh waktu yang sudah berlalu.');
                     }
                 },
@@ -81,8 +81,8 @@ class BookingUserRoomController extends Controller
         $workingStartTime = Carbon::createFromTime(7, 30);
         $workingEndTime = Carbon::createFromTime(17, 0);
 
-        $bookingStartTimeOnly = Carbon::createFromTime($startDateTime->hour, $startDateTime->minute);
-        $bookingEndTimeOnly = Carbon::createFromTime($endDateTime->hour, $endDateTime->minute);
+        $bookingStartTimeOnly = Carbon::createFromTime($startDateTime->hour, $startDateTime->minute, 0, $startDateTime->timezone);
+        $bookingEndTimeOnly = Carbon::createFromTime($endDateTime->hour, $endDateTime->minute, 0, $endDateTime->timezone);
 
         if ($bookingStartTimeOnly->lt($workingStartTime) || $bookingEndTimeOnly->gt($workingEndTime)) {
             return redirect()->back()->withErrors([
@@ -111,6 +111,7 @@ class BookingUserRoomController extends Controller
                 $query->where('booking_start_datetime', '<', $endDateTime)
                       ->where('booking_end_datetime', '>', $startDateTime);
             })
+            ->where('booking_end_datetime', '>', Carbon::now())
             ->first();
 
         if ($existingApprovedBooking) {

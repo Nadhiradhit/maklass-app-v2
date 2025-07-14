@@ -10,20 +10,18 @@
 
 @section('content')
     <div class="px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 mx-auto">
-        <div class="flex gap-4 font-semibold">
-            <a href="{{ route('landing.admin.room.dashboard') }}" class="text-2xl {{ str_contains($currentPath, 'room') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Ruangan Lab</a>
-            <a href="{{ route('landing.admin.schedule.dashboard') }}" class="text-2xl {{ str_contains($currentPath, 'schedule') ? 'border-b-2 border-secondary-800 text-secondary-800' : 'text-secondary-800 hover:text-secondary-700 active:text-secondary-200' }}">Jadwal Lab</a>
-        </div>
 
-        <div class="flex justify-end my-4 w-full">
-            <a href="{{ route('landing.admin.schedule.dashboard', ['show_modal' => true]) }}" class="bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700 w-full md:w-auto">
-                Tambah Jadwal Pembelajaran
+        <div class="flex flex-col md:flex-row md:justify-between my-4">
+            <h1 class="text-xl md:text-2xl font-semibold text-secondary-900 my-5 md:my-0">Dashboard Jadwal Pembelajaran Lab</h1>
+            <a href="{{ route('landing.admin.schedule.dashboard', ['show_modal' => true]) }}" class="flex items-center gap-2 bg-secondary-800 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-secondary-700">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                <span>Tambah Jadwal Pembelajaran</span>
             </a>
         </div>
 
         @if (request('show_modal'))
-            <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-auto w-full z-50 flex items-center justify-center">
-                <div class="relative p-5 border w-full md:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="fixed inset-0 bg-gray-900/70 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
+            <div class="relative p-5 border w-full md:w-1/2 max-h-[90vh] overflow-y-auto shadow-lg rounded-md bg-white">
                     <div>
                         @if(session('success'))
                             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">

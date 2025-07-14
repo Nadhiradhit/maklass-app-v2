@@ -78,6 +78,7 @@ Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
 
     // Booking Routes
     Route::get('/booking', [BookingAdminRoomController::class, "index"])->name('landing.admin.booking.dashboard');
+    Route::get('/booking-detail/{id}', [BookingAdminRoomController::class, 'detailModal'])->name('landing.admin.booking.detail');
     Route::put('/booking/{id}', [BookingAdminRoomController::class, "update"])->name('landing.admin.booking.update');
 
     // User Routes
