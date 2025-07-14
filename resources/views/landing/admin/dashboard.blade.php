@@ -16,12 +16,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-8 mt-2">
             <div class="bg-secondary-800 shadow-lg rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl">
                 <div class="p-3 xs:p-4 sm:p-5 md:p-6">
-                    <h3 class="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-white">Ruangan Terpakai</h3>
+                    <h3 class="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-white">Ruangan Kosong</h3>
                     <p class="text-sm xs:text-base sm:text-lg md:text-xl text-white font-semibold mt-1">{{ $formattedDate }}</p>
 
                     <div class="relative h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 mt-2 sm:mt-4">
                         <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white absolute right-0 bottom-0">
-                            {{ $laboratories->count() }}
+                            {{ $emptyRoomsCount }}
                         </h1>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
 
                     <div class="relative h-16 xs:h-20 sm:h-24 md:h-28 lg:h-32 mt-2 sm:mt-4">
                         <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#1D4766] absolute right-0 bottom-0">
-                            {{ $laboratories->count() }}
+                            {{ $occupiedRoomsCount }}
                         </h1>
                     </div>
                 </div>

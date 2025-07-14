@@ -21,6 +21,7 @@ class Booking extends Model
         'booking_start_datetime',
         'booking_end_datetime',
         'status',
+        'reason',
         'user_id',
         'room_laboratory_id',
         'file_attachment'

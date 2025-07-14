@@ -14,14 +14,23 @@ class BookingAdminRoomController extends Controller
 
     public function index()
     {
-        $data = Booking::with(['user', 'room'])->paginate(10);
+        $data = Booking::with(['user', 'room'])->paginate(15);
+
         return view('landing.admin.request.room.request-room', compact('data'));
+    }
+
+    public function detailModal($id)
+    {
+        $booking = Booking::with(['user', 'room'])->findOrFail($id);
+
+        return view('landing.admin.partials.booking-detail-modal', compact('booking'));
     }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'status' => 'required|in:approved,rejected',
+            'reason' => 'nullable|string|max:255',
         ]);
 
         $booking = Booking::findOrFail($id);
@@ -67,12 +76,23 @@ class BookingAdminRoomController extends Controller
                     'status' => 'Tidak dapat menyetujui peminjaman ini. Ruangan memiliki jadwal yang ada pada waktu yang sama.'
                 ])->withInput();
             }
+        } elseif ($validated['status'] === 'rejected' && $originalStatus !== 'rejected') {
+            // If the booking is being rejected, we can check if a reason is provided
+            if (empty($validated['reason'])) {
+                return redirect()->back()->withErrors([
+                    'reason' => 'Alasan penolakan wajib diisi.'
+                ])->withInput();
+            }
         }
+
 
         $booking->update($validated);
 
+        // dd($booking->status, $originalStatus, $booking->reason );
+
+
         if ($booking->status === 'approved' && $originalStatus !== 'approved') {
-            // Find all other PENDING bookings for the same room and time slot, and reject them
+
             Booking::where('room_laboratory_id', $booking->room_laboratory_id)
                 ->where('id', '!=', $booking->id)
                 ->where('status', 'pending')
@@ -80,9 +100,13 @@ class BookingAdminRoomController extends Controller
                     $query->where('booking_start_datetime', '<', $booking->booking_end_datetime)
                         ->where('booking_end_datetime', '>', $booking->booking_start_datetime);
                 })
-                ->update(['status' => 'rejected']);
+                ->update(['status' => 'rejected', 'reason' => 'Booking ini ditolak karena ada booking yang telah disetujui pada waktu yang sama.']);
 
             return redirect()->back()->with('success', 'Peminjaman disetujui, dan peminjaman pending yang berkonflik telah ditolak.');
+
+        }   elseif ($booking->status === 'rejected' && $originalStatus !== 'rejected') {
+
+            return redirect()->back()->with('success', 'Peminjaman berhasil ditolak dengan alasan yang diberikan.');
         }
 
 

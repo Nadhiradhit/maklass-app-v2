@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     {{-- @vite("resources/css/app.css", "resources/js/app.js") --}}
     <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+    <link rel="icon" href="{{ asset('assets/images/maklass-app.png') }}" type="image/png">
 </head>
 <body class="overflow-hidden">
 
@@ -23,7 +24,7 @@
                         </svg>
                     </button>
                     <h1 class="text-lg xs:text-xl sm:text-2xl md:text-3xl text-secondary-900 font-bold">
-                        Selamat Datang Di Maklass
+                        Selamat Datang Di Maklas
                     </h1>
                 </div>
 
@@ -46,13 +47,13 @@
                     </div>
                 </div>
             </header>
-            <main class="p-4 flex-grow">
+            <main class="px-4 flex-grow">
                 @yield('content')
             </main>
         </div>
     </div>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    @stack('scripts')
 </body>
 </html>
