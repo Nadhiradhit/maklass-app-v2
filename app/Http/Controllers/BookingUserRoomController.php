@@ -53,8 +53,8 @@ class BookingUserRoomController extends Controller
                         return;
                     }
 
-                    $now = Carbon::now();
-                    if ($startDateTime->lte($now)) {
+                    // Check if the start time is in the past
+                    if ($startDateTime->isPast()) {
                         $fail('Waktu peminjaman tidak boleh waktu yang sudah berlalu.');
                     }
                 },

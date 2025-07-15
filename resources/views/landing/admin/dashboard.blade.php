@@ -47,7 +47,7 @@
                 @forelse ($data as $item => $data)
                 <div class="flex md:flex-row flex-col md:items-center justify-between gap-4 px-6">
                     <h4 class="text-lg font-semibold">Ruangan {{ $data->room->name }}</h4>
-                    <div class="flex gap-4 justify-between items-center">
+                    <div class="flex md:flex-row flex-col gap-4 justify-between md:items-center">
                         <h6 class="text-sm font-semibold">{{ $data->user->name }}</h6>
                         @php
                         \Carbon\Carbon::setLocale('id');
@@ -61,8 +61,8 @@
                         @endphp
                         <h6 class="text-sm font-semibold">{{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</h6>
                         <h6>{{ $data->booking_start_datetime ? \Carbon\Carbon::parse($data->booking_start_datetime)->format('H:i') . ' - ' . \Carbon\Carbon::parse($data->booking_end_datetime)->format('H:i') : '-'}}</h6>
-                        <div class="p-6 text-center">
-                            <button class="px-4 py-2 bg-secondary-800 text-white rounded-md hover:bg-secondary-700">
+                        <div class="py-6 md:p-6 text-center">
+                            <button class="px-4 py-2 bg-secondary-800 text-white rounded-md hover:bg-secondary-700 w-full">
                                 <a href="{{ route('landing.admin.booking.dashboard') }}">Lihat Detail</a>
                             </button>
                         </div>

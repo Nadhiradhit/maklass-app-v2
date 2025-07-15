@@ -19,6 +19,7 @@ class UserController extends Controller
                                     $query->where('booking_start_datetime', '<=', Carbon::now())
                                           ->where('booking_end_datetime', '>=', Carbon::now());
                                 })
+                                ->where('status', 'approved')
                                 ->pluck('room_laboratory_id')
                                 ->unique();
 
