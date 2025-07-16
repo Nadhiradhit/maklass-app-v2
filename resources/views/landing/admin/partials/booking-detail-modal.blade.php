@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div class="space-y-4" id="detailModalContent">
     <div class="flex gap-8 flex-wrap">
         <div>
             <h4 class="text-lg">Ruangan Lab</h4>
