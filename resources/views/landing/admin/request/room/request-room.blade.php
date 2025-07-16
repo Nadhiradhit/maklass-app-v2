@@ -128,7 +128,7 @@
 <script>
     function openRejectModal(bookingId) {
         document.getElementById('rejectForm').action = "{{ route('landing.admin.booking.update', ['id' => ':id']) }}".replace(':id', bookingId);
-
+        document.getElementById('detailModal').classList.add('hidden');
         document.getElementById('detailModalContent').classList.add('hidden');
         document.getElementById('rejectModal').classList.remove('hidden');
 
@@ -144,6 +144,9 @@
 
     function closeRejectModal() {
         document.getElementById('rejectModal').classList.add('hidden');
+        document.getElementById('detailModal').classList.remove('hidden');
+        document.getElementById('detailModalContent').classList.remove('hidden');
+
         document.getElementById('reason').value = '';
     }
 
