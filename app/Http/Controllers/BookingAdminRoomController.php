@@ -101,6 +101,7 @@ class BookingAdminRoomController extends Controller
             $directory = 'public/booking_proofs';
             $filename = 'booking_proof_' . $booking->id . '.pdf';
             Storage::put($directory . '/' . $filename, $pdf->output());
+            // storage::disk('public')->put($directory . '/' . $filename, $pdf->output());
 
             $booking->file_attachment_approval = Storage::url($directory . '/' . $filename); // <-- UPDATED FIELD NAME
             $booking->save();

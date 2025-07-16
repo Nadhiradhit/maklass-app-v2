@@ -61,7 +61,7 @@
                             </td>
                             <td class="px-6 py-4 text-center">
                                 @if($booking->file_attachment)
-                                    <a href="{{ asset('storage/attachments/' . $booking->file_attachment) }}" target="_blank" class="text-blue-600 hover:text-blue-800">Lihat Lampiran</a>
+                                    <a href="{{ asset('storage/booking-attachments/' . $booking->file_attachment) }}" target="_blank" class="text-blue-600 hover:text-blue-800">Lihat Lampiran</a>
                                 @else
                                     <span class="text-gray-400">-</span>
                                 @endif
@@ -128,7 +128,7 @@
 <script>
     function openRejectModal(bookingId) {
         document.getElementById('rejectForm').action = "{{ route('landing.admin.booking.update', ['id' => ':id']) }}".replace(':id', bookingId);
-        document.getElementById('detailModal').classList.add('hidden');
+
         document.getElementById('detailModalContent').classList.add('hidden');
         document.getElementById('rejectModal').classList.remove('hidden');
 

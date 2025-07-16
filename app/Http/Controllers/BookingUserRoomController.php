@@ -156,7 +156,7 @@ class BookingUserRoomController extends Controller
             $file_ext = $file->extension();
             $file_slug = Str::of($request->booking_purpose);
             $file_name = 'Booking_' . $file_slug . '.' . $file_ext;
-            $file->move(public_path('storage/attachments'), $file_name);
+            $file->storeAs('booking-attachments', $file_name, 'public');
             $validated['file_attachment'] = $file_name;
         }
 
