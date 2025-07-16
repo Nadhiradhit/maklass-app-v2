@@ -7,6 +7,8 @@ use App\Models\Room;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class BookingAdminRoomController extends Controller
 {
@@ -93,6 +95,16 @@ class BookingAdminRoomController extends Controller
 
         if ($booking->status === 'approved' && $originalStatus !== 'approved') {
 
+            Carbon::setLocale('id');
+            $pdf = PDF::loadView('pdfs.booking-proof', compact('booking'));
+
+            $directory = 'public/booking_proofs';
+            $filename = 'booking_proof_' . $booking->id . '.pdf';
+            Storage::put($directory . '/' . $filename, $pdf->output());
+
+            $booking->file_attachment_approval = Storage::url($directory . '/' . $filename); // <-- UPDATED FIELD NAME
+            $booking->save();
+
             Booking::where('room_laboratory_id', $booking->room_laboratory_id)
                 ->where('id', '!=', $booking->id)
                 ->where('status', 'pending')
@@ -108,7 +120,6 @@ class BookingAdminRoomController extends Controller
 
             return redirect()->back()->with('success', 'Peminjaman berhasil ditolak dengan alasan yang diberikan.');
         }
-
 
         return redirect()->back()->with('success', 'Booking status updated successfully');
     }

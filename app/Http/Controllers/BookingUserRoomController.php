@@ -9,6 +9,7 @@ use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class BookingUserRoomController extends Controller
 {
@@ -163,5 +164,23 @@ class BookingUserRoomController extends Controller
         // dd($booking);
 
         return redirect()->back()->with('success', 'Booking request submitted successfully');
+    }
+
+    public function downloadAttachment($id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        if ($booking->status === 'approved' && $booking->file_attachment_approval) {
+
+            $internalPath = str_replace('/storage/', 'public/', $booking->file_attachment_approval);
+
+            if (Storage::exists($internalPath)) {
+                return Storage::download($internalPath, basename($booking->file_attachment_approval));
+            } else {
+                return redirect()->back()->withErrors(['message' => 'File bukti peminjaman tidak ditemukan.']);
+            }
+        }
+
+        return redirect()->back()->withErrors(['message' => 'Bukti peminjaman belum tersedia atau peminjaman belum disetujui.']);
     }
 }

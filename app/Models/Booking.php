@@ -24,7 +24,8 @@ class Booking extends Model
         'reason',
         'user_id',
         'room_laboratory_id',
-        'file_attachment'
+        'file_attachment',
+        'file_attachment_approval'
     ];
 
     // Relation Between Booking and Room

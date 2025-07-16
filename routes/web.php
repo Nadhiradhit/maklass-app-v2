@@ -55,6 +55,8 @@ Route::middleware(['user', 'verified', 'auth'])->prefix('dashboard')->group(func
     // Room Routes
     Route::get('/booking', [BookingUserRoomController::class, "index"])->name('landing.user.room.room-booking');
     Route::post('/booking', [BookingUserRoomController::class, "store"])->name('landing.user.room.room-booking.store');
+    Route::get('/booking/{id}/download', [BookingUserRoomController::class, "downloadAttachment"])->name('bookings.downloadAttachment');
+
 
     // Schedule Dashboard
     Route::get('/schedule', [ScheduleDashboardController::class, "index"])->name('landing.user.schedule.dashboard');

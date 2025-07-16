@@ -95,7 +95,6 @@
                                 <select name="room_laboratory_id" id="room_laboratory_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2" required>
                                     <option value="">Pilih Ruangan</option>
                                     @foreach($laboratories as $lab)
-
                                         <option value="{{ $lab->id }}" {{ old('room_laboratory_id') == $lab->id ? 'selected' : '' }}>{{ $lab->name }} {{ $lab->room }}</option>
                                     @endforeach
                                 </select>
@@ -159,6 +158,7 @@
                                     <h2 class="font-semibold text-lg text-secondary-900">{{$item->booking_purpose}}</h2>
                                     <p>Penanggung Jawab: {{$item->responsible}}</p>
                                     <p>Keperluan: {{$item->purpose}}</p>
+                                    <p>Ruangan: {{$item->room->name ?? 'Tidak Diketahui'}}</p>
                                     @php
                                         \Carbon\Carbon::setLocale('id');
                                         setlocale(LC_TIME, 'id_ID.UTF-8', 'id_ID', 'indonesian');
@@ -171,6 +171,11 @@
                                     @endphp
                                     <p>Tanggal Peminjaman: {{ $startDate ? $startDate->isoFormat('dddd, DD MMMM YYYY') : '-' }}</p>
                                     <p>Waktu Peminjaman: {{ $item->booking_start_datetime ? \Carbon\Carbon::parse($item->booking_start_datetime)->format('H:i') . ' - ' . \Carbon\Carbon::parse($item->booking_end_datetime)->format('H:i') : '-'}}</p>
+                                    @if ($item->status == 'approved' && $item->file_attachment_approval)
+                                        <a href="{{ route('bookings.downloadAttachment', $item->id) }}" class="text-blue-600 hover:underline mt-2 inline-flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0000FF"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg> Unduh Bukti Peminjaman
+                                        </a>
+                                    @endif
                                     @if($item->status == 'rejected')
                                         <p class="text-red-600">Alasan Penolakan: {{ $item->reason }}</p>
                                     @endif
