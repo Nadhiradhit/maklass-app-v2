@@ -10,7 +10,6 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ScheduleDashboardController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -70,7 +69,7 @@ Route::middleware('admin')->prefix('dashboard-admin')->group(function () {
     Route::get('/room', [RoomController::class, "index"])->name('landing.admin.room.dashboard');
     Route::post('/room', [RoomController::class, "create"])->name('landing.admin.room.create');
     Route::delete('/room/{id}', [RoomController::class, "delete"])->name('landing.admin.room.delete');
-    Route::put('/room/{id}', [RoomController::class, "update"])->name('landing.admin.room.update');
+    Route::put('/room/{room}', [RoomController::class, "update"])->name('landing.admin.room.update');
 
     // Schedule Routes
     Route::get('/schedule', [ScheduleController::class, "index"])->name('landing.admin.schedule.dashboard');

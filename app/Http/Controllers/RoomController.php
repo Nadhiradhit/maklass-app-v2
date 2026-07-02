@@ -40,8 +40,10 @@ class RoomController extends Controller
     public function update(Request $request, Room $room)
     {
         $hasActiveBooking = Booking::where('room_laboratory_id', $room->id)
-                                    ->where('end_time', '>', now()) // Assuming end_time is a datetime column
+                                    ->where('booking_start_datetime', '<=', now())
+                                    ->where('booking_end_datetime', '>=', now())
                                     ->exists();
+
 
         if ($hasActiveBooking) {
             return redirect()->back()->with('error', 'This room cannot be updated because it currently has active bookings.');
@@ -54,7 +56,7 @@ class RoomController extends Controller
             'description' => 'required',
         ]);
 
-        $room->update($request->all());
+        $room->update($request->only(['name', 'location', 'capacity', 'description']));
 
         return redirect()->route('landing.admin.room.dashboard')->with('success', 'Ruangan berhasil diupdate');
     }

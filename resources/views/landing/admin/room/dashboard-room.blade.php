@@ -139,7 +139,7 @@
                                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                                 </div>
                                                  <div>
-                                                    <label for="capacity" class="block text-sm font-medium text-gray-700">Nama Ruangan</label>
+                                                    <label for="capacity" class="block text-sm font-medium text-gray-700">Kapasitas</label>
                                                     <input type="text" name="capacity" id="capacity" value="{{ old('capacity', $item->capacity) }}"
                                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-500 focus:ring-secondary-500 p-2">
                                                 </div>
